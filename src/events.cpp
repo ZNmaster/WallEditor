@@ -15,4 +15,12 @@ BEGIN_EVENT_TABLE(WallEditorFrame, wxFrame)
     EVT_MENU(idMenuQuit, WallEditorFrame::OnQuit)
     EVT_MENU(idMenuAbout, WallEditorFrame::OnAbout)
 
+    /*
+    EVT_MOTION(WallEditorFrame::OnMouseMove)
+    EVT_PAINT(WallEditorFrame::OnPaint)
+    #ifdef __WXGTK__
+    EVT_WINDOW_CREATE(WallEditorFrame::OnWindowCreate)
+    #endif
+    */
+
 END_EVENT_TABLE()
