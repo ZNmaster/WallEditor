@@ -31,7 +31,7 @@ void WallEditorFrame::OnOpen(wxCommandEvent &event)
     //wxString msg = "Wanna open something?";
     //wxMessageBox(msg, _("Welcome to..."));
 
-    wxInitAllImageHandlers();
+    //wxInitAllImageHandlers();
 
     wxImage image(wxT("image.png"), wxBITMAP_TYPE_PNG);
 

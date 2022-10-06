@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1664981508 source:/home/vladyslav/WallEditor/WallEditorApp.cpp
+1665067832 source:/home/vladyslav/WallEditor/WallEditorApp.cpp
 	"wx_pch.h"
 	"WallEditorApp.h"
 	"WallEditorMain.h"
@@ -1638,10 +1638,10 @@
 1664979950 /home/vladyslav/WallEditor//WallEditorApp.h
 	<wx/app.h>
 
-1664983229 source:/home/vladyslav/WallEditor/WallEditorMain.cpp
+1665068669 source:/home/vladyslav/WallEditor/WallEditorMain.cpp
 	"wx_pch.h"
 	"WallEditorMain.h"
 
-1664989034 source:/home/vladyslav/WallEditor/src/event_handlers.cpp
+1665068573 source:/home/vladyslav/WallEditor/src/event_handlers.cpp
 	"WallEditorMain.h"
 

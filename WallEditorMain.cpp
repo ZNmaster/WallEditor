@@ -72,6 +72,24 @@ WallEditorFrame::WallEditorFrame(wxFrame *frame, const wxString& title)
     SetStatusText(wxbuildinfo(short_f), 1);
 #endif // wxUSE_STATUSBAR
 
+
+    wxPanel *panel = new wxPanel(this, -1);
+    wxBoxSizer *vbox = new wxBoxSizer(wxHORIZONTAL);
+
+    wxImage::AddHandler(new wxPNGHandler);
+    wxStaticBitmap *st1 = new wxStaticBitmap(panel, wxID_ANY,
+          wxBitmap("Level.png"));
+    //wxStaticText *st1 =  new wxStaticText(panel, wxID_ANY,
+    //    wxT("Text to DISPLAY"));
+
+    vbox->Add(st1, 1, wxALIGN_TOP| wxALIGN_LEFT);
+
+    vbox->Add(-1, 25);
+
+    panel->SetSizer(vbox);
+
+    Centre();
+
 }
 
 
