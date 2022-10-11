@@ -1,10 +1,10 @@
 # depslib dependency file v1.0
-1665067832 source:/home/vladyslav/WallEditor/WallEditorApp.cpp
+1665166527 source:/home/vladyslav/WallEditor/WallEditorApp.cpp
 	"wx_pch.h"
 	"WallEditorApp.h"
 	"WallEditorMain.h"
 
-1664979950 /home/vladyslav/WallEditor/WallEditorApp.h
+1665166528 /home/vladyslav/WallEditor/WallEditorApp.h
 	<wx/app.h>
 
 1664924173 /usr/local/include/wx-3.3/wx/app.h
@@ -556,7 +556,7 @@
 
 1664924176 /usr/local/include/wx-3.3/wx/gtk/app.h
 
-1664983095 /home/vladyslav/WallEditor/WallEditorMain.h
+1665501016 /home/vladyslav/WallEditor/WallEditorMain.h
 	<wx/wx.h>
 	"WallEditorApp.h"
 
@@ -1628,20 +1628,136 @@
 1664924176 /usr/local/include/wx-3.3/wx/gtk/mdi.h
 	"wx/frame.h"
 
-1664988559 source:/home/vladyslav/WallEditor/src/events.cpp
+1665496550 source:/home/vladyslav/WallEditor/src/events.cpp
 	"WallEditorMain.h"
+	"MyCanvas.h"
 
-1664983095 /home/vladyslav/WallEditor//WallEditorMain.h
+1665501016 /home/vladyslav/WallEditor//WallEditorMain.h
 	<wx/wx.h>
 	"WallEditorApp.h"
 
-1664979950 /home/vladyslav/WallEditor//WallEditorApp.h
+1665166528 /home/vladyslav/WallEditor//WallEditorApp.h
 	<wx/app.h>
 
-1665068669 source:/home/vladyslav/WallEditor/WallEditorMain.cpp
+1665501016 source:/home/vladyslav/WallEditor/WallEditorMain.cpp
 	"wx_pch.h"
 	"WallEditorMain.h"
+	"MyCanvas.h"
 
-1665068573 source:/home/vladyslav/WallEditor/src/event_handlers.cpp
+1665498286 source:/home/vladyslav/WallEditor/src/event_handlers.cpp
 	"WallEditorMain.h"
+	"MyCanvas.h"
+
+1665498525 /home/vladyslav/WallEditor/include/MyCanvas.h
+	"wx/wxprec.h"
+	"wx/wx.h"
+	"wx/colordlg.h"
+	"wx/image.h"
+	"wx/artprov.h"
+	"wx/dcbuffer.h"
+	"wx/dcgraph.h"
+	"wx/overlay.h"
+	"wx/graphics.h"
+	"wx/filename.h"
+	"wx/metafile.h"
+	"wx/settings.h"
+	"wx/dcsvg.h"
+	"wx/dcps.h"
+
+1664924174 /usr/local/include/wx-3.3/wx/wxprec.h
+	"wx/defs.h"
+	"wx/chartype.h"
+	"wx/msw/wrapwin.h"
+	"wx/msw/private.h"
+	"wx/msw/wrapcctl.h"
+	"wx/msw/wrapcdlg.h"
+	"wx/msw/missing.h"
+	"wx/wx.h"
+
+1664924175 /usr/local/include/wx-3.3/wx/colordlg.h
+	"wx/defs.h"
+	"wx/colourdata.h"
+	"wx/msw/colordlg.h"
+	"wx/osx/colordlg.h"
+	"wx/gtk/colordlg.h"
+	"wx/qt/colordlg.h"
+	"wx/generic/colrdlgg.h"
+
+1664924175 /usr/local/include/wx-3.3/wx/colourdata.h
+	"wx/colour.h"
+
+1664924176 /usr/local/include/wx-3.3/wx/gtk/colordlg.h
+	"wx/dialog.h"
+
+1664924175 /usr/local/include/wx-3.3/wx/artprov.h
+	"wx/string.h"
+	"wx/bitmap.h"
+	"wx/icon.h"
+	"wx/iconbndl.h"
+	"wx/bmpbndl.h"
+
+1664924176 /usr/local/include/wx-3.3/wx/dcbuffer.h
+	"wx/dcmemory.h"
+	"wx/dcclient.h"
+	"wx/window.h"
+
+1664924174 /usr/local/include/wx-3.3/wx/dcgraph.h
+	"wx/dc.h"
+	"wx/geometry.h"
+	"wx/graphics.h"
+
+1664924175 /usr/local/include/wx-3.3/wx/graphics.h
+	"wx/defs.h"
+	"wx/affinematrix2d.h"
+	"wx/geometry.h"
+	"wx/colour.h"
+	"wx/dynarray.h"
+	"wx/font.h"
+	"wx/image.h"
+	"wx/peninfobase.h"
+	"wx/vector.h"
+
+1664924175 /usr/local/include/wx-3.3/wx/overlay.h
+	"wx/defs.h"
+
+1664924175 /usr/local/include/wx-3.3/wx/metafile.h
+	"wx/defs.h"
+	"wx/msw/enhmeta.h"
+	"wx/msw/metafile.h"
+	"wx/msw/metafile.h"
+	"wx/osx/metafile.h"
+
+1664924174 /usr/local/include/wx-3.3/wx/dcsvg.h
+	"wx/string.h"
+	"wx/filename.h"
+	"wx/dc.h"
+	"wx/scopedptr.h"
+
+1664924175 /usr/local/include/wx-3.3/wx/dcps.h
+	"wx/generic/dcpsg.h"
+
+1664924174 /usr/local/include/wx-3.3/wx/generic/dcpsg.h
+	"wx/defs.h"
+	"wx/dc.h"
+	"wx/dcprint.h"
+	"wx/dialog.h"
+	"wx/module.h"
+	"wx/cmndata.h"
+	"wx/strvararg.h"
+
+1664924174 /usr/local/include/wx-3.3/wx/cmndata.h
+	"wx/defs.h"
+	"wx/gdicmn.h"
+	"wx/stream.h"
+
+1665499361 source:/home/vladyslav/WallEditor/src/MyCanvas.cpp
+	"MyCanvas.h"
+	"WallEditorMain.h"
+	"wx/valnum.h"
+
+1664924175 /usr/local/include/wx-3.3/wx/valnum.h
+	"wx/defs.h"
+	"wx/textentry.h"
+	"wx/validate.h"
+	<limits>
 

@@ -1,10 +1,10 @@
 /***************************************************************
  * Name:      WallEditorApp.cpp
  * Purpose:   Code for Application Class
- * Author:    iurii ()
+ * Author:    ZNmaster
  * Created:   2022-10-05
- * Copyright: iurii ()
- * License:
+ * Copyright:
+ * License:   WTFPL
  **************************************************************/
 
 #ifdef WX_PRECOMP

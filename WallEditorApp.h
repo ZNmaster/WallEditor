@@ -1,10 +1,10 @@
 /***************************************************************
  * Name:      WallEditorApp.h
  * Purpose:   Defines Application Class
- * Author:    iurii ()
+ * Author:    ZNmaster
  * Created:   2022-10-05
- * Copyright: iurii ()
- * License:
+ * Copyright:
+ * License:   WTFPL
  **************************************************************/
 
 #ifndef WALLEDITORAPP_H

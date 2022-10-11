@@ -15,6 +15,7 @@
 				<Compiler>
 					<Add option="-march=athlon-xp" />
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -25,6 +26,7 @@
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -33,16 +35,20 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-std=c++11" />
 			<Add option="`wx-config --cflags`" />
 			<Add directory="/home/vladyslav/WallEditor/" />
 		</Compiler>
 		<Linker>
+			<Add option="-std=c++11" />
 			<Add option="`wx-config --libs`" />
 		</Linker>
 		<Unit filename="WallEditorApp.cpp" />
 		<Unit filename="WallEditorApp.h" />
 		<Unit filename="WallEditorMain.cpp" />
 		<Unit filename="WallEditorMain.h" />
+		<Unit filename="include/MyCanvas.h" />
+		<Unit filename="src/MyCanvas.cpp" />
 		<Unit filename="src/event_handlers.cpp" />
 		<Unit filename="src/events.cpp" />
 		<Extensions>

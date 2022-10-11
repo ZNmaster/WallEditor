@@ -1,0 +1,367 @@
+/***************************************************************
+ * Name:      MyCanvas.cpp
+ * Purpose:   Code for Application Canvas
+ * Author:    ZNmaster
+ * Created:   2022-10-06
+ * Copyright:
+ * License:   WTFPL
+ **************************************************************/
+
+
+#include "MyCanvas.h"
+#include "WallEditorMain.h"
+
+MyCanvas::MyCanvas(WallEditorFrame *parent)
+        : wxScrolledWindow(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
+                           wxHSCROLL | wxVSCROLL)
+{
+    m_owner = parent;
+    //m_show = File_ShowDefault;
+    //m_smile_bmp = wxBitmap(smile_xpm);
+    //m_std_icon = wxArtProvider::GetIcon(wxART_INFORMATION);
+    m_clip = false;
+    m_rubberBand = false;
+#if wxUSE_GRAPHICS_CONTEXT
+    m_renderer = NULL;
+    m_useAntiAliasing = true;
+#endif
+    m_useBuffer = false;
+    m_showBBox = false;
+    m_sizeDIP = wxSize(0, 0);
+}
+
+void MyCanvas::SetMap(wxBitmap *Map_ptr)
+{
+    MyMap = Map_ptr;
+    wxClientDC dc(this);
+    PrepareDC(dc);
+    m_owner->PrepareDC(dc);
+    DrawDefault(dc);
+}
+
+void MyCanvas::DrawTestBrushes(wxDC& dc)
+{
+
+}
+
+void MyCanvas::DrawTestPoly(wxDC& dc)
+{
+
+}
+
+void MyCanvas::DrawTestLines( int x, int y, int width, wxDC &dc )
+{
+
+}
+
+void MyCanvas::DrawCrossHair(int x, int y, int width, int heigth, wxDC &dc)
+{
+
+}
+
+void MyCanvas::DrawDefault(wxDC& dc)
+{
+   dc.DrawBitmap(*MyMap, dc.FromDIP(0), dc.FromDIP(0), true);
+}
+
+void MyCanvas::DrawText(wxDC& dc)
+{
+
+}
+
+
+static const struct
+{
+    wxString name;
+    wxRasterOperationMode rop;
+} rasterOperations[] =
+{
+    { "wxAND",          wxAND           },
+    { "wxAND_INVERT",   wxAND_INVERT    },
+    { "wxAND_REVERSE",  wxAND_REVERSE   },
+    { "wxCLEAR",        wxCLEAR         },
+    { "wxCOPY",         wxCOPY          },
+    { "wxEQUIV",        wxEQUIV         },
+    { "wxINVERT",       wxINVERT        },
+    { "wxNAND",         wxNAND          },
+    { "wxNO_OP",        wxNO_OP         },
+    { "wxOR",           wxOR            },
+    { "wxOR_INVERT",    wxOR_INVERT     },
+    { "wxOR_REVERSE",   wxOR_REVERSE    },
+    { "wxSET",          wxSET           },
+    { "wxSRC_INVERT",   wxSRC_INVERT    },
+    { "wxXOR",          wxXOR           },
+};
+
+void MyCanvas::DrawImages(wxDC& dc, DrawMode mode)
+{
+
+}
+
+void MyCanvas::DrawWithLogicalOps(wxDC& dc)
+{
+
+}
+
+#if wxDRAWING_DC_SUPPORTS_ALPHA || wxUSE_GRAPHICS_CONTEXT
+void MyCanvas::DrawAlpha(wxDC& dc)
+{
+
+}
+#endif // wxDRAWING_DC_SUPPORTS_ALPHA || wxUSE_GRAPHICS_CONTEXT
+
+#if wxUSE_GRAPHICS_CONTEXT
+
+// modeled along Robin Dunn's GraphicsContext.py sample
+
+void MyCanvas::DrawGraphics(wxGraphicsContext* gc)
+{
+
+}
+#endif // wxUSE_GRAPHICS_CONTEXT
+
+void MyCanvas::DrawCircles(wxDC& dc)
+{
+
+}
+
+void MyCanvas::DrawSplines(wxDC& dc)
+{
+
+}
+
+void MyCanvas::DrawGradients(wxDC& dc)
+{
+
+}
+
+void MyCanvas::DrawSystemColours(wxDC& dc)
+{
+
+}
+
+void MyCanvas::DrawDatabaseColours(wxDC& dc)
+{
+
+}
+
+void MyCanvas::DrawColour(wxDC& dc, const wxFont& mono, wxCoord x, const wxRect& r, const wxString& colourName, const wxColour& col)
+{
+
+}
+
+void MyCanvas::DrawRegions(wxDC& dc)
+{
+
+}
+
+void MyCanvas::DrawRegionsHelper(wxDC& dc, wxCoord x, bool firstTime)
+{
+
+}
+
+wxSize MyCanvas::GetDIPDrawingSize() const
+{
+    return m_sizeDIP;
+}
+
+void MyCanvas::Draw(wxDC& pdc)
+{
+
+#if wxUSE_GRAPHICS_CONTEXT
+    wxGCDC gdc;
+
+    if ( m_renderer )
+    {
+        wxGraphicsContext* context;
+        if ( wxPaintDC *paintdc = wxDynamicCast(&pdc, wxPaintDC) )
+        {
+            context = m_renderer->CreateContext(*paintdc);
+        }
+        else if ( wxMemoryDC *memdc = wxDynamicCast(&pdc, wxMemoryDC) )
+        {
+            context = m_renderer->CreateContext(*memdc);
+        }
+#if wxUSE_METAFILE && defined(wxMETAFILE_IS_ENH)
+        else if ( wxMetafileDC *metadc = wxDynamicCast(&pdc, wxMetafileDC) )
+        {
+            context = m_renderer->CreateContext(*metadc);
+        }
+#endif
+        else
+        {
+            wxFAIL_MSG( "Unknown wxDC kind" );
+            return;
+        }
+
+        context->SetAntialiasMode(m_useAntiAliasing ? wxANTIALIAS_DEFAULT : wxANTIALIAS_NONE);
+
+        gdc.SetBackground(GetBackgroundColour());
+        gdc.SetGraphicsContext(context);
+    }
+
+    wxDC &dc = m_renderer ? static_cast<wxDC&>(gdc) : pdc;
+#else
+    wxDC &dc = pdc ;
+#endif
+
+    // Adjust scrolled contents for screen drawing operations only.
+    if ( wxDynamicCast(&pdc, wxBufferedPaintDC) ||
+         wxDynamicCast(&pdc, wxPaintDC) )
+    {
+        PrepareDC(dc);
+    }
+
+    m_owner->PrepareDC(dc);
+
+    dc.SetBackgroundMode( m_owner->m_backgroundMode );
+
+    /*
+    if ( m_owner->m_backgroundBrush.IsOk() )
+        dc.SetBackground( m_owner->m_backgroundBrush );
+    if ( m_owner->m_colourForeground.IsOk() )
+        dc.SetTextForeground( m_owner->m_colourForeground );
+    if ( m_owner->m_colourBackground.IsOk() )
+        dc.SetTextBackground( m_owner->m_colourBackground );
+
+    if ( m_owner->m_textureBackground) {
+        if ( ! m_owner->m_backgroundBrush.IsOk() ) {
+            dc.SetBackground(wxBrush(wxColour(0, 128, 0)));
+        }
+    }
+    */
+
+    dc.Clear();
+
+
+    //____________________________________-
+    // put draw here
+
+    if (MyMap) {
+        DrawDefault(dc);
+    }
+
+
+
+    // Adjust drawing area dimensions only if screen drawing is invoked.
+    if ( wxDynamicCast(&pdc, wxBufferedPaintDC) ||
+         wxDynamicCast(&pdc, wxPaintDC) )
+    {
+        wxCoord x0, y0;
+        dc.GetDeviceOrigin(&x0, &y0);
+        m_sizeDIP.x = dc.ToDIP(dc.LogicalToDeviceX(dc.MaxX()) - x0) + 1;
+        m_sizeDIP.y = dc.ToDIP(dc.LogicalToDeviceY(dc.MaxY()) - y0) + 1;
+    }
+}
+
+
+#if wxUSE_GRAPHICS_CONTEXT
+void MyCanvas::UseGraphicRenderer(wxGraphicsRenderer* renderer)
+{
+    m_renderer = renderer;
+    if (renderer)
+    {
+        int major, minor, micro;
+        renderer->GetVersion(&major, &minor, &micro);
+        wxString str = wxString::Format("Graphics renderer: %s %i.%i.%i",
+                         renderer->GetName(), major, minor, micro);
+        m_owner->SetStatusText(str, 1);
+    }
+    else
+    {
+        m_owner->SetStatusText(wxEmptyString, 1);
+    }
+
+    Refresh();
+}
+#endif // wxUSE_GRAPHICS_CONTEXT
+
+
+#if wxUSE_DC_TRANSFORM_MATRIX
+#include "wx/valnum.h"
+
+class TransformDataDialog : public wxDialog
+{
+public:
+    TransformDataDialog(wxWindow* parent, wxDouble dx, wxDouble dy, wxDouble scx, wxDouble scy, wxDouble rotAngle)
+        : wxDialog(parent, wxID_ANY, "Affine transformation parameters")
+        , m_dx(dx)
+        , m_dy(dy)
+        , m_scx(scx)
+        , m_scy(scy)
+        , m_rotAngle(rotAngle)
+    {
+        wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
+
+        const int border = wxSizerFlags::GetDefaultBorder();
+        wxFlexGridSizer* paramSizer = new wxFlexGridSizer(2, wxSize(border, border));
+        paramSizer->Add(new wxStaticText(this, wxID_ANY, "Translation X:"), wxSizerFlags().CentreVertical());
+        wxFloatingPointValidator<wxDouble> val_dx(1, &m_dx, wxNUM_VAL_NO_TRAILING_ZEROES);
+        paramSizer->Add(new wxTextCtrl(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, 0, val_dx), wxSizerFlags().CentreVertical());
+        paramSizer->Add(new wxStaticText(this, wxID_ANY, "Translation Y:"), wxSizerFlags().CentreVertical());
+        wxFloatingPointValidator<wxDouble> val_dy(1, &m_dy, wxNUM_VAL_NO_TRAILING_ZEROES);
+        paramSizer->Add(new wxTextCtrl(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, 0, val_dy), wxSizerFlags().CentreVertical());
+        paramSizer->Add(new wxStaticText(this, wxID_ANY, "Scale X (0.2 - 5):"), wxSizerFlags().CentreVertical());
+        wxFloatingPointValidator<wxDouble> val_scx(2, &m_scx, wxNUM_VAL_NO_TRAILING_ZEROES);
+        paramSizer->Add(new wxTextCtrl(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, 0, val_scx), wxSizerFlags().CentreVertical());
+        paramSizer->Add(new wxStaticText(this, wxID_ANY, "Scale Y (0.2 - 5):"), wxSizerFlags().CentreVertical());
+        wxFloatingPointValidator<wxDouble> val_scy(2, &m_scy, wxNUM_VAL_NO_TRAILING_ZEROES);
+        paramSizer->Add(new wxTextCtrl(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, 0, val_scy), wxSizerFlags().CentreVertical());
+        paramSizer->Add(new wxStaticText(this, wxID_ANY, "Rotation angle (deg):"), wxSizerFlags().CentreVertical());
+        wxFloatingPointValidator<wxDouble> val_rot(1, &m_rotAngle, wxNUM_VAL_NO_TRAILING_ZEROES);
+        paramSizer->Add(new wxTextCtrl(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, 0, val_rot), wxSizerFlags().CentreVertical());
+        sizer->Add(paramSizer, wxSizerFlags().DoubleBorder());
+
+        wxSizer *btnSizer = CreateSeparatedButtonSizer(wxOK | wxCANCEL);
+        sizer->Add(btnSizer, wxSizerFlags().Expand().Border());
+
+        SetSizerAndFit(sizer);
+    }
+
+    virtual bool TransferDataFromWindow() wxOVERRIDE
+    {
+        if ( !wxDialog::TransferDataFromWindow() )
+            return false;
+
+        if ( m_scx < 0.2 || m_scx > 5.0 || m_scy < 0.2 || m_scy > 5.0 )
+        {
+            if ( !wxValidator::IsSilent() )
+                wxBell();
+
+            return false;
+        }
+
+        return true;
+    }
+
+    void GetTransformationData(wxDouble* dx, wxDouble* dy, wxDouble* scx, wxDouble* scy, wxDouble* rotAngle) const
+    {
+        if ( dx )
+            *dx = m_dx;
+
+        if ( dy )
+            *dy = m_dy;
+
+        if ( scx )
+            *scx = m_scx;
+
+        if ( scy )
+            *scy = m_scy;
+
+        if ( rotAngle )
+            *rotAngle = m_rotAngle;
+    }
+
+private:
+    wxDouble m_dx;
+    wxDouble m_dy;
+    wxDouble m_scx;
+    wxDouble m_scy;
+    wxDouble m_rotAngle;
+};
+#endif // wxUSE_DC_TRANSFORM_MATRIX
+
+MyCanvas::~MyCanvas()
+{
+    //dtor
+}

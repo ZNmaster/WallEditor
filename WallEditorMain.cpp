@@ -1,10 +1,10 @@
 /***************************************************************
  * Name:      WallEditorMain.cpp
  * Purpose:   Code for Application Frame
- * Author:    iurii ()
+ * Author:    ZNmaster
  * Created:   2022-10-05
- * Copyright: iurii ()
- * License:
+ * Copyright:
+ * License:   WTFPL
  **************************************************************/
 
 #ifdef WX_PRECOMP
@@ -16,6 +16,7 @@
 #endif //__BORLANDC__
 
 #include "WallEditorMain.h"
+#include "MyCanvas.h"
 
 //helper functions
 enum wxbuildinfoformat {
@@ -50,6 +51,21 @@ wxString wxbuildinfo(wxbuildinfoformat format)
 WallEditorFrame::WallEditorFrame(wxFrame *frame, const wxString& title)
     : wxFrame(frame, -1, title)
 {
+    //init
+    m_xLogicalOrigin = 0;
+    m_yLogicalOrigin = 0;
+    m_xAxisReversed =
+    m_yAxisReversed = false;
+#if wxUSE_DC_TRANSFORM_MATRIX
+    m_transform_dx = 0.0;
+    m_transform_dy = 0.0;
+    m_transform_scx = 1.0;
+    m_transform_scy = 1.0;
+    m_transform_rot = 0.0;
+#endif // wxUSE_DC_TRANSFORM_MATRIX
+    m_xUserScale = 1.0;
+    m_yUserScale = 1.0;
+
 #if wxUSE_MENUS
     // create a menu bar
     wxMenuBar* mbar = new wxMenuBar();
@@ -73,6 +89,7 @@ WallEditorFrame::WallEditorFrame(wxFrame *frame, const wxString& title)
 #endif // wxUSE_STATUSBAR
 
 
+    /*
     wxPanel *panel = new wxPanel(this, -1);
     wxBoxSizer *vbox = new wxBoxSizer(wxHORIZONTAL);
 
@@ -88,13 +105,53 @@ WallEditorFrame::WallEditorFrame(wxFrame *frame, const wxString& title)
 
     panel->SetSizer(vbox);
 
-    Centre();
+    Centre();*/
+
+    m_canvas = new MyCanvas( this );
+
+    wxImage::AddHandler(new wxPNGHandler);
+
+    wxBitmap my_image;
+
+    my_image.LoadFile("Level.png", wxBITMAP_TYPE_PNG);
+
+
+
+    m_canvas->SetScrollbars( 10, 10, 100, 240 );
+
+
+
+    SetSize(FromDIP(wxSize(800, 700)));
+    Center(wxBOTH);
 
 }
 
+void WallEditorFrame::PrepareDC(wxDC& dc)
+{
+#if wxUSE_DC_TRANSFORM_MATRIX
+    if ( dc.CanUseTransformMatrix() )
+    {
+        wxAffineMatrix2D mtx;
+        mtx.Translate(m_transform_dx, m_transform_dy);
+        mtx.Rotate(wxDegToRad(m_transform_rot));
+        mtx.Scale(m_transform_scx, m_transform_scy);
+        dc.SetTransformMatrix(mtx);
+    }
+#endif // wxUSE_DC_TRANSFORM_MATRIX
+    dc.SetLogicalOrigin( dc.FromDIP(m_xLogicalOrigin), dc.FromDIP(m_yLogicalOrigin) );
+    dc.SetAxisOrientation( !m_xAxisReversed, m_yAxisReversed );
+    dc.SetUserScale( m_xUserScale, m_yUserScale );
+    //dc.SetMapMode( m_mapMode );
+}
 
 WallEditorFrame::~WallEditorFrame()
 {
+    if (MyMap)
+        {
+            wxDELETE (MyMap);
+            MyMap = nullptr;
+        }
+
 }
 
 
