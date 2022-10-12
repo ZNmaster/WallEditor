@@ -39,6 +39,11 @@ void WallEditorFrame::OnOpen(wxCommandEvent &event)
     MyMap->LoadFile(wxT("Level.png"), wxBITMAP_TYPE_PNG);
     m_canvas->SetMap(MyMap);
 
+    int units_x = MyMap->GetWidth() / scroll_pix_per_unit;
+    int units_y = MyMap->GetHeight() / scroll_pix_per_unit;
+
+    m_canvas->SetScrollbars( scroll_pix_per_unit*m_xUserScale, scroll_pix_per_unit*m_yUserScale, units_x, units_y );
+
 
     //wxString msg = "Wanna open something?";
     //wxMessageBox(msg, _("Welcome to..."));

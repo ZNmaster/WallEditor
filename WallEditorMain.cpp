@@ -66,6 +66,8 @@ WallEditorFrame::WallEditorFrame(wxFrame *frame, const wxString& title)
     m_xUserScale = 1.0;
     m_yUserScale = 1.0;
 
+    scroll_pix_per_unit = 10;
+
 #if wxUSE_MENUS
     // create a menu bar
     wxMenuBar* mbar = new wxMenuBar();
@@ -117,7 +119,8 @@ WallEditorFrame::WallEditorFrame(wxFrame *frame, const wxString& title)
 
 
 
-    m_canvas->SetScrollbars( 10, 10, 100, 240 );
+    //scroll size (x -> 10 pixels per unit -> 300 units -> 3000 pixels)
+    m_canvas->SetScrollbars( scroll_pix_per_unit, scroll_pix_per_unit, 100, 240 );
 
 
 

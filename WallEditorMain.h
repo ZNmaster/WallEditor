@@ -50,6 +50,8 @@ class WallEditorFrame: public wxFrame
 
         virtual ~WallEditorFrame();
     private:
+        int scroll_pix_per_unit;
+
         enum
         {
             idMenuQuit = 1000,

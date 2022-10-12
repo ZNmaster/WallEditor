@@ -556,7 +556,7 @@
 
 1664924176 /usr/local/include/wx-3.3/wx/gtk/app.h
 
-1665501016 /home/vladyslav/WallEditor/WallEditorMain.h
+1665602070 /home/vladyslav/WallEditor/WallEditorMain.h
 	<wx/wx.h>
 	"WallEditorApp.h"
 
@@ -1632,19 +1632,19 @@
 	"WallEditorMain.h"
 	"MyCanvas.h"
 
-1665501016 /home/vladyslav/WallEditor//WallEditorMain.h
+1665602070 /home/vladyslav/WallEditor//WallEditorMain.h
 	<wx/wx.h>
 	"WallEditorApp.h"
 
 1665166528 /home/vladyslav/WallEditor//WallEditorApp.h
 	<wx/app.h>
 
-1665501016 source:/home/vladyslav/WallEditor/WallEditorMain.cpp
+1665602430 source:/home/vladyslav/WallEditor/WallEditorMain.cpp
 	"wx_pch.h"
 	"WallEditorMain.h"
 	"MyCanvas.h"
 
-1665498286 source:/home/vladyslav/WallEditor/src/event_handlers.cpp
+1665602070 source:/home/vladyslav/WallEditor/src/event_handlers.cpp
 	"WallEditorMain.h"
 	"MyCanvas.h"
 
