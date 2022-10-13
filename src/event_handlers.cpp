@@ -29,15 +29,40 @@ void WallEditorFrame::OnAbout(wxCommandEvent &event)
 
 void WallEditorFrame::OnOpen(wxCommandEvent &event)
 {
+
+    //temp pointer to the old image to delete bitmap after a new one is set (otherwise the app will crash)
+    wxBitmap *temp_bitmap = nullptr;
+
     if (MyMap)
     {
-        wxDELETE (MyMap);
-        MyMap = nullptr;
+        temp_bitmap = MyMap;
+
+        //m_canvas->SetMap(nullptr);
+        //wxDELETE (MyMap);
+        //MyMap = nullptr;
+        //m_canvas->SetMap(MyMap);
     }
 
+    bool File_loaded = false;
+
     MyMap = new wxBitmap;
-    MyMap->LoadFile(wxT("Level.png"), wxBITMAP_TYPE_PNG);
-    m_canvas->SetMap(MyMap);
+
+    wxFileDialog openFileDialog(this);
+
+    if (openFileDialog.ShowModal() == wxID_OK)
+      {
+          wxString fileName = openFileDialog.GetPath();
+          File_loaded = MyMap->LoadFile(fileName, wxBITMAP_TYPE_ANY);
+      }
+    else return;
+
+    if (File_loaded)
+    {
+        m_canvas->SetMap(MyMap);
+        if (temp_bitmap) wxDELETE(temp_bitmap);
+    }
+
+    else return;
 
     int units_x = MyMap->GetWidth() / scroll_pix_per_unit;
     int units_y = MyMap->GetHeight() / scroll_pix_per_unit;
@@ -64,6 +89,7 @@ void WallEditorFrame::OnOpen(wxCommandEvent &event)
 
 void MyCanvas::OnPaint(wxPaintEvent &WXUNUSED(event))
 {
+
     if ( m_useBuffer )
     {
         wxBufferedPaintDC bpdc(this);

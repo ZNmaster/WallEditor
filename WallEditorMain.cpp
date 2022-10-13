@@ -111,7 +111,9 @@ WallEditorFrame::WallEditorFrame(wxFrame *frame, const wxString& title)
 
     m_canvas = new MyCanvas( this );
 
-    wxImage::AddHandler(new wxPNGHandler);
+    //wxImage::AddHandler(new wxPNGHandler);
+
+    wxInitAllImageHandlers();
 
     wxBitmap my_image;
 

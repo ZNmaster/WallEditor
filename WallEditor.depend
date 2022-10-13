@@ -1639,12 +1639,12 @@
 1665166528 /home/vladyslav/WallEditor//WallEditorApp.h
 	<wx/app.h>
 
-1665602430 source:/home/vladyslav/WallEditor/WallEditorMain.cpp
+1665669508 source:/home/vladyslav/WallEditor/WallEditorMain.cpp
 	"wx_pch.h"
 	"WallEditorMain.h"
 	"MyCanvas.h"
 
-1665602070 source:/home/vladyslav/WallEditor/src/event_handlers.cpp
+1665671999 source:/home/vladyslav/WallEditor/src/event_handlers.cpp
 	"WallEditorMain.h"
 	"MyCanvas.h"
 
