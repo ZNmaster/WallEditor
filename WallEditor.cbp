@@ -38,6 +38,8 @@
 			<Add option="-std=c++11" />
 			<Add option="`wx-config --cflags`" />
 			<Add directory="/home/vladyslav/WallEditor/" />
+			<Add directory="src/src_LW" />
+			<Add directory="include/include_LW" />
 		</Compiler>
 		<Linker>
 			<Add option="-std=c++11" />
@@ -49,8 +51,10 @@
 		<Unit filename="WallEditorMain.h" />
 		<Unit filename="include/MyCanvas.h" />
 		<Unit filename="src/MyCanvas.cpp" />
-		<Unit filename="src/event_handlers.cpp" />
-		<Unit filename="src/events.cpp" />
+		<Unit filename="src/src_LW/Geometry.cpp" />
+		<Unit filename="src/src_LW/Line.cpp" />
+		<Unit filename="src/src_LW/LineA.cpp" />
+		<Unit filename="src/src_LW/LineEq.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

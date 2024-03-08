@@ -1,0 +1,4006 @@
+cscope 15 $HOME/CodeBlocks/WallEditor               0000021429
+	@/home/vladyslav/CodeBlocks/WallEditor/WallEditorApp.cpp
+
+10 #ifde‡
+WX_PRECOMP
+
+
+11 
+	~"wx_pch.h
+"
+
+14 #ifde‡
+__BORLANDC__
+
+
+15 #¥agm®
+hdr°›
+
+
+18 
+	~"WÆlEdô‹Aµ.h
+"
+
+19 
+	~"WÆlEdô‹Maö.h
+"
+
+21 
+IMPLEMENT_APP
+(
+WÆlEdô‹Aµ
+);
+
+23 
+boﬁ
+ 
+	gWÆlEdô‹Aµ
+::
+	$OnInô
+()
+
+25 
+WÆlEdô‹Føme
+* 
+‰ame
+ = 
+√w
+ 
+	`WÆlEdô‹Føme
+(0L, 
+	`_
+("Walls Editor"));
+
+27 
+‰ame
+->
+	`Show
+();
+
+29  
+åue
+;
+
+30 
+	}
+}
+
+	@/home/vladyslav/CodeBlocks/WallEditor/WallEditorApp.h
+
+10 #i‚de‡
+WALLEDITORAPP_H
+
+
+11 
+	#WALLEDITORAPP_H
+
+
+	)
+
+13 
+	~<wx/≠p.h
+>
+
+15 ˛as†
+	cWÆlEdô‹Aµ
+ : 
+public
+ 
+wxAµ
+
+
+17 
+public
+:
+
+18 
+vútuÆ
+ 
+boﬁ
+ 
+OnInô
+();
+
+	@/home/vladyslav/CodeBlocks/WallEditor/WallEditorMain.cpp
+
+10 #ifde‡
+WX_PRECOMP
+
+
+11 
+	~"wx_pch.h
+"
+
+14 #ifde‡
+__BORLANDC__
+
+
+15 #¥agm®
+hdr°›
+
+
+18 
+	~"WÆlEdô‹Maö.h
+"
+
+19 
+	~"MyC™vas.h
+"
+
+22 
+	ewxbuûdöfof‹m©
+ {
+
+23 
+	msh‹t_f
+, 
+	ml⁄g_f
+ };
+
+25 
+wxSåög
+ 
+	$wxbuûdöfo
+(
+wxbuûdöfof‹m©
+ 
+f‹m©
+)
+
+27 
+wxSåög
+ 
+	`wxbuûd
+(
+wxVERSION_STRING
+);
+
+29 i‡(
+f‹m©
+ =
+l⁄g_f
+ )
+
+31 #i‡
+	`deföed
+(
+__WXMSW__
+)
+
+32 
+wxbuûd
+ << 
+	`_T
+("-Windows");
+
+33 #ñi‡
+	`deföed
+(
+__WXMAC__
+)
+
+34 
+wxbuûd
+ << 
+	`_T
+("-Mac");
+
+35 #ñi‡
+	`deföed
+(
+__UNIX__
+)
+
+36 
+wxbuûd
+ << 
+	`_T
+("-Linux");
+
+39 #i‡
+wxUSE_UNICODE
+
+
+40 
+wxbuûd
+ << 
+	`_T
+("-Unicode build");
+
+42 
+wxbuûd
+ << 
+	`_T
+("-ANSI build");
+
+46  
+wxbuûd
+;
+
+47 
+	}
+}
+
+51 
+	gWÆlEdô‹Føme
+::
+	$WÆlEdô‹Føme
+(
+wxFøme
+ *
+‰ame
+, c⁄° 
+wxSåög
+& 
+tôÀ
+)
+
+52 : 
+	`wxFøme
+(
+‰ame
+, -1, 
+tôÀ
+)
+
+55 
+m_xLogiˇlOrigö
+ = 0;
+
+56 
+m_yLogiˇlOrigö
+ = 0;
+
+57 
+m_xAxisRevî£d
+ =
+
+58 
+m_yAxisRevî£d
+ = 
+Ál£
+;
+
+59 #i‡
+wxUSE_DC_TRANSFORM_MATRIX
+
+
+60 
+m_å™sf‹m_dx
+ = 0.0;
+
+61 
+m_å™sf‹m_dy
+ = 0.0;
+
+62 
+m_å™sf‹m_scx
+ = 1.0;
+
+63 
+m_å™sf‹m_scy
+ = 1.0;
+
+64 
+m_å™sf‹m_rŸ
+ = 0.0;
+
+66 
+m_xU£rSˇÀ
+ = 1.0;
+
+67 
+m_yU£rSˇÀ
+ = 1.0;
+
+69 
+s¸ﬁl_pix_≥r_unô
+ = 10;
+
+71 #i‡
+wxUSE_MENUS
+
+
+73 
+wxMíuB¨
+* 
+mb¨
+ = 
+√w
+ 
+	`wxMíuB¨
+();
+
+74 
+wxMíu
+* 
+fûeMíu
+ = 
+√w
+ 
+	`wxMíu
+(
+	`_T
+(""));
+
+75 
+fûeMíu
+->
+	`Aµíd
+(
+idMíuQuô
+, 
+	`_
+("&Quit\tAlt-F4"), _("QuitÅheápplication"));
+
+76 
+fûeMíu
+->
+	`Aµíd
+(
+idMíuO≥n
+, 
+	`_
+("&Open\tCtrl-O"), _("Open file"));
+
+77 
+mb¨
+->
+	`Aµíd
+(
+fûeMíu
+, 
+	`_
+("&File"));
+
+79 
+wxMíu
+* 
+hñpMíu
+ = 
+√w
+ 
+	`wxMíu
+(
+	`_T
+(""));
+
+80 
+hñpMíu
+->
+	`Aµíd
+(
+idMíuAbout
+, 
+	`_
+("&About\tF1"), _("Show infoáboutÅhisápplication"));
+
+81 
+mb¨
+->
+	`Aµíd
+(
+hñpMíu
+, 
+	`_
+("&Help"));
+
+83 
+	`SëMíuB¨
+(
+mb¨
+);
+
+86 #i‡
+wxUSE_STATUSBAR
+
+
+88 
+	`Cª©eSètusB¨
+(2);
+
+89 
+	`SëSètusText
+(
+	`_
+("Hello Code::Blocks user!"),0);
+
+90 
+	`SëSètusText
+(
+	`wxbuûdöfo
+(
+sh‹t_f
+), 1);
+
+112 
+m_ˇnvas
+ = 
+√w
+ 
+	`MyC™vas
+–
+this
+ );
+
+116 
+	`wxInôAŒImageH™dÀrs
+();
+
+118 
+wxBôm≠
+ 
+my_image
+;
+
+120 
+my_image
+.
+	`LﬂdFûe
+("Levñ.≤g", 
+wxBITMAP_TYPE_PNG
+);
+
+125 
+m_ˇnvas
+->
+	`SëS¸ﬁlb¨s
+–
+s¸ﬁl_pix_≥r_unô
+, scroll_pix_per_unit, 100, 240 );
+
+129 
+	`SëSize
+(
+	`FromDIP
+(
+	`wxSize
+(800, 700)));
+
+130 
+	`Cíãr
+(
+wxBOTH
+);
+
+132 
+	}
+}
+
+134 
+	gWÆlEdô‹Føme
+::
+	$Pª∑ªDC
+(
+wxDC
+& 
+dc
+)
+
+136 #i‡
+wxUSE_DC_TRANSFORM_MATRIX
+
+
+137 i‡–
+dc
+.
+	`C™U£Tønsf‹mM©rix
+() )
+
+139 
+wxAfföeM©rix2D
+ 
+mtx
+;
+
+140 
+mtx
+.
+	`Tøn¶©e
+(
+m_å™sf‹m_dx
+, 
+m_å™sf‹m_dy
+);
+
+141 
+mtx
+.
+	`RŸ©e
+(
+	`wxDegToRad
+(
+m_å™sf‹m_rŸ
+));
+
+142 
+mtx
+.
+	`SˇÀ
+(
+m_å™sf‹m_scx
+, 
+m_å™sf‹m_scy
+);
+
+143 
+dc
+.
+	`SëTønsf‹mM©rix
+(
+mtx
+);
+
+146 
+dc
+.
+	`SëLogiˇlOrigö
+–dc.
+	`FromDIP
+(
+m_xLogiˇlOrigö
+), dc.FromDIP(
+m_yLogiˇlOrigö
+) );
+
+147 
+dc
+.
+	`SëAxisOrõ¡©i⁄
+–!
+m_xAxisRevî£d
+, 
+m_yAxisRevî£d
+ );
+
+148 
+dc
+.
+	`SëU£rSˇÀ
+–
+m_xU£rSˇÀ
+, 
+m_yU£rSˇÀ
+ );
+
+150 
+	}
+}
+
+152 
+	gWÆlEdô‹Føme
+::~
+	$WÆlEdô‹Føme
+()
+
+154 i‡(
+MyM≠
+)
+
+156 
+	`wxDELETE
+ (
+MyM≠
+);
+
+157 
+MyM≠
+ = 
+nuŒ±r
+;
+
+160 
+	}
+}
+
+	@/home/vladyslav/CodeBlocks/WallEditor/WallEditorMain.h
+
+10 #i‚de‡
+WALLEDITORMAIN_H
+
+
+11 
+	#WALLEDITORMAIN_H
+
+
+	)
+
+13 #i‚de‡
+WX_PRECOMP
+
+
+14 
+	~<wx/wx.h
+>
+
+17 
+	~"WÆlEdô‹Aµ.h
+"
+
+19 
+˛ass
+ 
+	gMyC™vas
+;
+
+21 ˛as†
+	cWÆlEdô‹Føme
+: 
+public
+ 
+wxFøme
+
+
+23 
+public
+:
+
+24 
+WÆlEdô‹Føme
+(
+wxFøme
+ *
+‰ame
+, c⁄° 
+wxSåög
+& 
+tôÀ
+);
+
+25 
+MyC™vas
+ *
+	mm_ˇnvas
+;
+
+26 
+wxBôm≠
+ *
+	mMyM≠
+ = 
+nuŒ±r
+;
+
+29 
+	$Pª∑ªDC
+(
+wxDC
+& 
+dc
+Ë
+wxOVERRIDE
+;
+
+31 
+m_backgroundMode
+ = 
+wxBRUSHSTYLE_SOLID
+;
+
+34 
+m_xLogiˇlOrigö
+;
+
+35 
+m_yLogiˇlOrigö
+;
+
+36 
+boﬁ
+ 
+m_xAxisRevî£d
+,
+
+37 
+m_yAxisRevî£d
+;
+
+38 #i‡
+wxUSE_DC_TRANSFORM_MATRIX
+
+
+39 
+wxDoubÀ
+ 
+m_å™sf‹m_dx
+;
+
+40 
+wxDoubÀ
+ 
+m_å™sf‹m_dy
+;
+
+41 
+wxDoubÀ
+ 
+m_å™sf‹m_scx
+;
+
+42 
+wxDoubÀ
+ 
+m_å™sf‹m_scy
+;
+
+43 
+wxDoubÀ
+ 
+m_å™sf‹m_rŸ
+;
+
+45 
+m_xU£rSˇÀ
+,
+
+46 
+m_yU£rSˇÀ
+;
+
+51 
+vútuÆ
+ ~
+	`WÆlEdô‹Føme
+();
+
+52 
+¥iv©e
+:
+
+53 
+s¸ﬁl_pix_≥r_unô
+;
+
+57 
+idMíuQuô
+ = 1000,
+
+58 
+idMíuAbout
+,
+
+59 
+idMíuO≥n
+
+
+62 
+	`OnClo£
+(
+wxClo£Evít
+& 
+evít
+);
+
+63 
+	`OnO≥n
+(
+wxComm™dEvít
+& 
+evít
+);
+
+64 
+	`OnQuô
+(
+wxComm™dEvít
+& 
+evít
+);
+
+65 
+	`OnAbout
+(
+wxComm™dEvít
+& 
+evít
+);
+
+67 
+	`DECLARE_EVENT_TABLE
+()
+
+68 
+	}
+};
+
+	@/home/vladyslav/CodeBlocks/WallEditor/include/MyCanvas.h
+
+11 #i‚de‡
+MYCANVAS_H
+
+
+12 
+	#MYCANVAS_H
+
+
+	)
+
+15 
+	~"wx/wx¥ec.h
+"
+
+20 #i‚de‡
+WX_PRECOMP
+
+
+21 
+	~"wx/wx.h
+"
+
+24 
+	~"wx/cﬁ‹dlg.h
+"
+
+25 
+	~"wx/image.h
+"
+
+26 
+	~"wx/¨çrov.h
+"
+
+27 
+	~"wx/dcbuf„r.h
+"
+
+28 
+	~"wx/dcgøph.h
+"
+
+29 
+	~"wx/ovîœy.h
+"
+
+30 
+	~"wx/gøphics.h
+"
+
+31 
+	~"wx/fûíame.h
+"
+
+32 
+	~"wx/mëafûe.h
+"
+
+33 
+	~"wx/£âögs.h
+"
+
+34 #i‡
+wxUSE_SVG
+
+
+35 
+	~"wx/dcsvg.h
+"
+
+37 #i‡
+wxUSE_POSTSCRIPT
+
+
+38 
+	~"wx/d˝s.h
+"
+
+42 #i‡
+deföed
+(
+__WXOSX__
+Ë|| deföed(
+__WXGTK3__
+)
+
+43 
+	#wxDRAWING_DC_SUPPORTS_ALPHA
+ 1
+
+	)
+
+45 
+	#wxDRAWING_DC_SUPPORTS_ALPHA
+ 0
+
+	)
+
+49 
+˛ass
+ 
+	gWÆlEdô‹Føme
+;
+
+51 ˛as†
+	cMyC™vas
+: 
+public
+ 
+wxS¸ﬁÀdWödow
+
+
+53 
+public
+:
+
+54 
+MyC™vas
+–
+WÆlEdô‹Føme
+ *
+∑ª¡
+ );
+
+55 
+	mvútuÆ
+ ~
+MyC™vas
+();
+
+57 
+OnPaöt
+(
+wxPaötEvít
+ &
+evít
+);
+
+58 
+OnMou£Move
+(
+wxMou£Evít
+ &
+evít
+);
+
+59 
+OnMou£Down
+(
+wxMou£Evít
+ &
+evít
+);
+
+60 
+OnMou£Up
+(
+wxMou£Evít
+ &
+evít
+);
+
+62 
+	$ToShow
+(
+show
+Ë{ 
+m_show
+ = show; 
+	`Re‰esh
+(); }
+
+63 
+	$GëPage
+(Ë{  
+m_show
+; 
+	}
+}
+
+66 
+	$Clù
+(
+boﬁ
+ 
+˛ù
+Ë{ 
+m_˛ù
+ = clù; 
+	`Re‰esh
+(); 
+	}
+}
+
+67 #i‡
+wxUSE_GRAPHICS_CONTEXT
+
+
+68 
+boﬁ
+ 
+	$HasRídîî
+(Ëc⁄° {  
+m_ªndîî
+ !
+NULL
+; 
+	}
+}
+
+69 
+U£GøphicRídîî
+(
+wxGøphicsRídîî
+* 
+ªndîî
+);
+
+70 
+boﬁ
+ 
+	$IsDeÁu…Rídîî
+() const
+
+71 { i‡–!
+m_ªndîî
+ )  
+Ál£
+;
+
+72  
+m_ªndîî
+ =
+wxGøphicsRídîî
+::
+	`GëDeÁu…Rídîî
+();
+
+73 
+	}
+}
+
+74 
+wxGøphicsRídîî
+* 
+	$GëRídîî
+(Ëc⁄° {  
+m_ªndîî
+; 
+	}
+}
+
+75 
+	$E«bÀA¡iAlüsög
+(
+boﬁ
+ 
+u£
+Ë{ 
+m_u£A¡iAlüsög
+ = u£; 
+	`Re‰esh
+(); 
+	}
+}
+
+77 
+	$U£Buf„r
+(
+boﬁ
+ 
+u£
+Ë{ 
+m_u£Buf„r
+ = u£; 
+	`Re‰esh
+(); 
+	}
+}
+
+78 
+	$ShowBoundögBox
+(
+boﬁ
+ 
+show
+Ë{ 
+m_showBBox
+ = show; 
+	`Re‰esh
+(); 
+	}
+}
+
+79 
+wxSize
+ 
+	$GëDIPDøwögSize
+() const;
+
+81 
+	`Døw
+(
+wxDC
+& 
+dc
+);
+
+83 
+	`SëM≠
+(
+wxBôm≠
+ *
+M≠_±r
+);
+
+84 
+wxBôm≠
+ *
+MyM≠
+ = 
+nuŒ±r
+;
+
+86 
+¥Ÿe˘ed
+:
+
+87 
+	eDøwMode
+
+
+89 
+Døw_N‹mÆ
+,
+
+90 
+Døw_Såëch
+
+
+91 
+	}
+};
+
+93 
+DøwTe°Löes
+–
+x
+, 
+y
+, 
+width
+, 
+wxDC
+ &
+dc
+ );
+
+94 
+DøwCrossHaú
+(
+x
+, 
+y
+, 
+width
+, 
+heigth
+, 
+wxDC
+ &
+dc
+);
+
+95 
+DøwTe°Pﬁy
+(
+wxDC
+& 
+dc
+);
+
+96 
+DøwTe°Brushes
+(
+wxDC
+& 
+dc
+);
+
+97 
+DøwText
+(
+wxDC
+& 
+dc
+);
+
+98 
+DøwImages
+(
+wxDC
+& 
+dc
+, 
+DøwMode
+ 
+mode
+);
+
+99 
+DøwWôhLogiˇlOps
+(
+wxDC
+& 
+dc
+);
+
+100 #i‡
+wxDRAWING_DC_SUPPORTS_ALPHA
+ || 
+wxUSE_GRAPHICS_CONTEXT
+
+
+101 
+DøwAÕha
+(
+wxDC
+& 
+dc
+);
+
+103 #i‡
+wxUSE_GRAPHICS_CONTEXT
+
+
+104 
+DøwGøphics
+(
+wxGøphicsC⁄ãxt
+* 
+gc
+);
+
+106 
+DøwRegi⁄s
+(
+wxDC
+& 
+dc
+);
+
+107 
+DøwCú˛es
+(
+wxDC
+& 
+dc
+);
+
+108 
+DøwS∂öes
+(
+wxDC
+& 
+dc
+);
+
+109 
+DøwDeÁu…
+(
+wxDC
+& 
+dc
+);
+
+110 
+DøwGødõ¡s
+(
+wxDC
+& 
+dc
+);
+
+111 
+DøwSy°emCﬁours
+(
+wxDC
+& 
+dc
+);
+
+112 
+DøwD©aba£Cﬁours
+(
+wxDC
+& 
+dc
+);
+
+113 
+DøwCﬁour
+(
+wxDC
+& 
+dc
+, c⁄° 
+wxF⁄t
+& 
+m⁄o
+, 
+wxCo‹d
+ 
+x
+, c⁄° 
+wxRe˘
+& 
+r
+, c⁄° 
+wxSåög
+& 
+cﬁourName
+, c⁄° 
+wxCﬁour
+& 
+cﬁ
+);
+
+115 
+DøwRegi⁄sHñ≥r
+(
+wxDC
+& 
+dc
+, 
+wxCo‹d
+ 
+x
+, 
+boﬁ
+ 
+fú°Time
+);
+
+117 
+	g¥iv©e
+:
+
+118 
+WÆlEdô‹Føme
+ *
+m_ow√r
+;
+
+120 
+	gm_show
+;
+
+121 
+wxBôm≠
+ 
+	gm_smûe_bmp
+;
+
+122 
+wxIc⁄
+ 
+	gm_°d_ic⁄
+;
+
+123 
+boﬁ
+ 
+	gm_˛ù
+;
+
+124 
+wxOvîœy
+ 
+	gm_ovîœy
+;
+
+125 
+boﬁ
+ 
+	gm_rubbîB™d
+;
+
+126 
+wxPoöt
+ 
+	gm_™ch‹poöt
+;
+
+127 
+wxPoöt
+ 
+	gm_cuºíçoöt
+;
+
+128 #i‡
+wxUSE_GRAPHICS_CONTEXT
+
+
+129 
+wxGøphicsRídîî
+* 
+	gm_ªndîî
+;
+
+130 
+boﬁ
+ 
+	gm_u£A¡iAlüsög
+;
+
+132 
+boﬁ
+ 
+	gm_u£Buf„r
+;
+
+133 
+boﬁ
+ 
+	gm_showBBox
+;
+
+134 
+wxSize
+ 
+	gm_sizeDIP
+;
+
+137 
+wxDECLARE_EVENT_TABLE
+();
+
+	@/home/vladyslav/CodeBlocks/WallEditor/src/MyCanvas.cpp
+
+11 
+	~"MyC™vas.h
+"
+
+12 
+	~"WÆlEdô‹Maö.h
+"
+
+14 
+	gMyC™vas
+::
+	$MyC™vas
+(
+WÆlEdô‹Føme
+ *
+∑ª¡
+)
+
+15 : 
+	`wxS¸ﬁÀdWödow
+(
+∑ª¡
+, 
+wxID_ANY
+, 
+wxDeÁu…Posôi⁄
+, 
+wxDeÁu…Size
+,
+
+16 
+wxHSCROLL
+ | 
+wxVSCROLL
+)
+
+18 
+m_ow√r
+ = 
+∑ª¡
+;
+
+22 
+m_˛ù
+ = 
+Ál£
+;
+
+23 
+m_rubbîB™d
+ = 
+Ál£
+;
+
+24 #i‡
+wxUSE_GRAPHICS_CONTEXT
+
+
+25 
+m_ªndîî
+ = 
+NULL
+;
+
+26 
+m_u£A¡iAlüsög
+ = 
+åue
+;
+
+28 
+m_u£Buf„r
+ = 
+Ál£
+;
+
+29 
+m_showBBox
+ = 
+Ál£
+;
+
+30 
+m_sizeDIP
+ = 
+	`wxSize
+(0, 0);
+
+31 
+	}
+}
+
+33 
+	gMyC™vas
+::
+	$SëM≠
+(
+wxBôm≠
+ *
+M≠_±r
+)
+
+35 
+MyM≠
+ = 
+M≠_±r
+;
+
+36 
+wxClõ¡DC
+ 
+	`dc
+(
+this
+);
+
+37 
+	`Pª∑ªDC
+(
+dc
+);
+
+38 
+m_ow√r
+->
+	`Pª∑ªDC
+(
+dc
+);
+
+39 
+	`DøwDeÁu…
+(
+dc
+);
+
+40 
+	}
+}
+
+42 
+	gMyC™vas
+::
+	$DøwTe°Brushes
+(
+wxDC
+& 
+dc
+)
+
+45 
+	}
+}
+
+47 
+MyC™vas
+::
+	$DøwTe°Pﬁy
+(
+wxDC
+& 
+dc
+)
+
+50 
+	}
+}
+
+52 
+MyC™vas
+::
+	$DøwTe°Löes
+–
+x
+, 
+y
+, 
+width
+, 
+wxDC
+ &
+dc
+ )
+
+55 
+	}
+}
+
+57 
+	gMyC™vas
+::
+	$DøwCrossHaú
+(
+x
+, 
+y
+, 
+width
+, 
+heigth
+, 
+wxDC
+ &
+dc
+)
+
+60 
+	}
+}
+
+62 
+	gMyC™vas
+::
+	$DøwDeÁu…
+(
+wxDC
+& 
+dc
+)
+
+64 
+dc
+.
+	`DøwBôm≠
+(*
+MyM≠
+, dc.
+	`FromDIP
+(0), dc.FromDIP(0), 
+åue
+);
+
+65 
+	}
+}
+
+67 
+	gMyC™vas
+::
+	$DøwText
+(
+wxDC
+& 
+dc
+)
+
+70 
+	}
+}
+
+75 
+wxSåög
+ 
+«me
+;
+
+76 
+wxRa°îO≥øti⁄Mode
+ 
+	mr›
+;
+
+77 } 
+	gø°îO≥øti⁄s
+[] =
+
+79 { "wxAND", 
+wxAND
+ },
+
+80 { "wxAND_INVERT", 
+wxAND_INVERT
+ },
+
+81 { "wxAND_REVERSE", 
+wxAND_REVERSE
+ },
+
+82 { "wxCLEAR", 
+wxCLEAR
+ },
+
+83 { "wxCOPY", 
+wxCOPY
+ },
+
+84 { "wxEQUIV", 
+wxEQUIV
+ },
+
+85 { "wxINVERT", 
+wxINVERT
+ },
+
+86 { "wxNAND", 
+wxNAND
+ },
+
+87 { "wxNO_OP", 
+wxNO_OP
+ },
+
+88 { "wxOR", 
+wxOR
+ },
+
+89 { "wxOR_INVERT", 
+wxOR_INVERT
+ },
+
+90 { "wxOR_REVERSE", 
+wxOR_REVERSE
+ },
+
+91 { "wxSET", 
+wxSET
+ },
+
+92 { "wxSRC_INVERT", 
+wxSRC_INVERT
+ },
+
+93 { "wxXOR", 
+wxXOR
+ },
+
+96 
+	gMyC™vas
+::
+	$DøwImages
+(
+wxDC
+& 
+dc
+, 
+DøwMode
+ 
+mode
+)
+
+99 
+	}
+}
+
+101 
+	gMyC™vas
+::
+	$DøwWôhLogiˇlOps
+(
+wxDC
+& 
+dc
+)
+
+104 
+	}
+}
+
+106 #i‡
+wxDRAWING_DC_SUPPORTS_ALPHA
+ || 
+wxUSE_GRAPHICS_CONTEXT
+
+
+107 
+MyC™vas
+::
+	$DøwAÕha
+(
+wxDC
+& 
+dc
+)
+
+110 
+	}
+}
+
+113 #i‡
+wxUSE_GRAPHICS_CONTEXT
+
+
+117 
+MyC™vas
+::
+	$DøwGøphics
+(
+wxGøphicsC⁄ãxt
+* 
+gc
+)
+
+120 
+	}
+}
+
+123 
+MyC™vas
+::
+	$DøwCú˛es
+(
+wxDC
+& 
+dc
+)
+
+126 
+	}
+}
+
+128 
+MyC™vas
+::
+	$DøwS∂öes
+(
+wxDC
+& 
+dc
+)
+
+131 
+	}
+}
+
+133 
+MyC™vas
+::
+	$DøwGødõ¡s
+(
+wxDC
+& 
+dc
+)
+
+136 
+	}
+}
+
+138 
+MyC™vas
+::
+	$DøwSy°emCﬁours
+(
+wxDC
+& 
+dc
+)
+
+141 
+	}
+}
+
+143 
+MyC™vas
+::
+	$DøwD©aba£Cﬁours
+(
+wxDC
+& 
+dc
+)
+
+146 
+	}
+}
+
+148 
+MyC™vas
+::
+	$DøwCﬁour
+(
+wxDC
+& 
+dc
+, c⁄° 
+wxF⁄t
+& 
+m⁄o
+, 
+wxCo‹d
+ 
+x
+, c⁄° 
+wxRe˘
+& 
+r
+, c⁄° 
+wxSåög
+& 
+cﬁourName
+, c⁄° 
+wxCﬁour
+& 
+cﬁ
+)
+
+151 
+	}
+}
+
+153 
+	gMyC™vas
+::
+	$DøwRegi⁄s
+(
+wxDC
+& 
+dc
+)
+
+156 
+	}
+}
+
+158 
+MyC™vas
+::
+	$DøwRegi⁄sHñ≥r
+(
+wxDC
+& 
+dc
+, 
+wxCo‹d
+ 
+x
+, 
+boﬁ
+ 
+fú°Time
+)
+
+161 
+	}
+}
+
+163 
+wxSize
+ 
+	gMyC™vas
+::
+	$GëDIPDøwögSize
+() const
+
+165  
+m_sizeDIP
+;
+
+166 
+	}
+}
+
+168 
+	gMyC™vas
+::
+	$Døw
+(
+wxDC
+& 
+pdc
+)
+
+171 #i‡
+wxUSE_GRAPHICS_CONTEXT
+
+
+172 
+wxGCDC
+ 
+gdc
+;
+
+174 i‡–
+m_ªndîî
+ )
+
+176 
+wxGøphicsC⁄ãxt
+* 
+c⁄ãxt
+;
+
+177 i‡–
+wxPaötDC
+ *
+∑ötdc
+ = 
+	`wxDy«micCa°
+(&
+pdc
+, wxPaintDC) )
+
+179 
+c⁄ãxt
+ = 
+m_ªndîî
+->
+	`Cª©eC⁄ãxt
+(*
+∑ötdc
+);
+
+181 i‡–
+wxMem‹yDC
+ *
+memdc
+ = 
+	`wxDy«micCa°
+(&
+pdc
+, wxMemoryDC) )
+
+183 
+c⁄ãxt
+ = 
+m_ªndîî
+->
+	`Cª©eC⁄ãxt
+(*
+memdc
+);
+
+185 #i‡
+wxUSE_METAFILE
+ && 
+	`deföed
+(
+wxMETAFILE_IS_ENH
+)
+
+186 i‡–
+wxMëafûeDC
+ *
+mëadc
+ = 
+	`wxDy«micCa°
+(&
+pdc
+, wxMetafileDC) )
+
+188 
+c⁄ãxt
+ = 
+m_ªndîî
+->
+	`Cª©eC⁄ãxt
+(*
+mëadc
+);
+
+193 
+	`wxFAIL_MSG
+( "Unknown wxDC kind" );
+
+197 
+c⁄ãxt
+->
+	`SëA¡ülüsMode
+(
+m_u£A¡iAlüsög
+ ? 
+wxANTIALIAS_DEFAULT
+ : 
+wxANTIALIAS_NONE
+);
+
+199 
+gdc
+.
+	`SëBackground
+(
+	`GëBackgroundCﬁour
+());
+
+200 
+gdc
+.
+	`SëGøphicsC⁄ãxt
+(
+c⁄ãxt
+);
+
+203 
+wxDC
+ &
+dc
+ = 
+m_ªndîî
+ ? 
+°©ic_ˇ°
+<wxDC&>(
+gdc
+Ë: 
+pdc
+;
+
+205 
+wxDC
+ &
+dc
+ = 
+pdc
+ ;
+
+209 i‡–
+	`wxDy«micCa°
+(&
+pdc
+, 
+wxBuf„ªdPaötDC
+) ||
+
+210 
+	`wxDy«micCa°
+(&
+pdc
+, 
+wxPaötDC
+) )
+
+212 
+	`Pª∑ªDC
+(
+dc
+);
+
+215 
+m_ow√r
+->
+	`Pª∑ªDC
+(
+dc
+);
+
+217 
+dc
+.
+	`SëBackgroundMode
+–
+m_ow√r
+->
+m_backgroundMode
+ );
+
+234 
+dc
+.
+	`CÀ¨
+();
+
+240 i‡(
+MyM≠
+) {
+
+241 
+	`DøwDeÁu…
+(
+dc
+);
+
+247 i‡–
+	`wxDy«micCa°
+(&
+pdc
+, 
+wxBuf„ªdPaötDC
+) ||
+
+248 
+	`wxDy«micCa°
+(&
+pdc
+, 
+wxPaötDC
+) )
+
+250 
+wxCo‹d
+ 
+x0
+, 
+y0
+;
+
+251 
+dc
+.
+	`GëDevi˚Origö
+(&
+x0
+, &
+y0
+);
+
+252 
+m_sizeDIP
+.
+x
+ = 
+dc
+.
+	`ToDIP
+(dc.
+	`LogiˇlToDevi˚X
+(dc.
+	`MaxX
+()Ë- 
+x0
+) + 1;
+
+253 
+m_sizeDIP
+.
+y
+ = 
+dc
+.
+	`ToDIP
+(dc.
+	`LogiˇlToDevi˚Y
+(dc.
+	`MaxY
+()Ë- 
+y0
+) + 1;
+
+255 
+	}
+}
+
+258 #i‡
+wxUSE_GRAPHICS_CONTEXT
+
+
+259 
+	gMyC™vas
+::
+	$U£GøphicRídîî
+(
+wxGøphicsRídîî
+* 
+ªndîî
+)
+
+261 
+m_ªndîî
+ = 
+ªndîî
+;
+
+262 i‡(
+ªndîî
+)
+
+264 
+maj‹
+, 
+mö‹
+, 
+mi¸o
+;
+
+265 
+ªndîî
+->
+	`GëVîsi⁄
+(&
+maj‹
+, &
+mö‹
+, &
+mi¸o
+);
+
+266 
+wxSåög
+ 
+°r
+ = wxSåög::
+	`F‹m©
+("GraphicsÑenderer: %s %i.%i.%i",
+
+267 
+ªndîî
+->
+	`GëName
+(), 
+maj‹
+, 
+mö‹
+, 
+mi¸o
+);
+
+268 
+m_ow√r
+->
+	`SëSètusText
+(
+°r
+, 1);
+
+272 
+m_ow√r
+->
+	`SëSètusText
+(
+wxEm±ySåög
+, 1);
+
+275 
+	`Re‰esh
+();
+
+276 
+	}
+}
+
+280 #i‡
+wxUSE_DC_TRANSFORM_MATRIX
+
+
+281 
+	~"wx/vÆnum.h
+"
+
+283 ˛as†
+	cTønsf‹mD©aDülog
+ : 
+public
+ 
+wxDülog
+
+
+285 
+public
+:
+
+286 
+	$Tønsf‹mD©aDülog
+(
+wxWödow
+* 
+∑ª¡
+, 
+wxDoubÀ
+ 
+dx
+, wxDoubÀ 
+dy
+, wxDoubÀ 
+scx
+, wxDoubÀ 
+scy
+, wxDoubÀ 
+rŸAngÀ
+)
+
+287 : 
+	`wxDülog
+(
+∑ª¡
+, 
+wxID_ANY
+, "AffineÅransformationÖarameters")
+
+288 , 
+	`m_dx
+(
+dx
+)
+
+289 , 
+	`m_dy
+(
+dy
+)
+
+290 , 
+	`m_scx
+(
+scx
+)
+
+291 , 
+	`m_scy
+(
+scy
+)
+
+292 , 
+	$m_rŸAngÀ
+(
+rŸAngÀ
+)
+
+294 
+wxBoxSizî
+* 
+sizî
+ = 
+√w
+ 
+	`wxBoxSizî
+(
+wxVERTICAL
+);
+
+296 c⁄° 
+b‹dî
+ = 
+wxSizîFœgs
+::
+	`GëDeÁu…B‹dî
+();
+
+297 
+wxFÀxGridSizî
+* 
+∑ømSizî
+ = 
+√w
+ 
+	`wxFÀxGridSizî
+(2, 
+	`wxSize
+(
+b‹dî
+, border));
+
+298 
+∑ømSizî
+->
+	`Add
+(
+√w
+ 
+	`wxSèticText
+(
+this
+, 
+wxID_ANY
+, "Tøn¶©i⁄ X:"), 
+	`wxSizîFœgs
+().
+	`CíåeVîtiˇl
+());
+
+299 
+wxFlﬂtögPoötVÆid©‹
+<
+wxDoubÀ
+> 
+	`vÆ_dx
+(1, &
+m_dx
+, 
+wxNUM_VAL_NO_TRAILING_ZEROES
+);
+
+300 
+∑ømSizî
+->
+	`Add
+(
+√w
+ 
+	`wxTextCål
+(
+this
+, 
+wxID_ANY
+, "", 
+wxDeÁu…Posôi⁄
+, 
+wxDeÁu…Size
+, 0, 
+vÆ_dx
+), 
+	`wxSizîFœgs
+().
+	`CíåeVîtiˇl
+());
+
+301 
+∑ømSizî
+->
+	`Add
+(
+√w
+ 
+	`wxSèticText
+(
+this
+, 
+wxID_ANY
+, "Tøn¶©i⁄ Y:"), 
+	`wxSizîFœgs
+().
+	`CíåeVîtiˇl
+());
+
+302 
+wxFlﬂtögPoötVÆid©‹
+<
+wxDoubÀ
+> 
+	`vÆ_dy
+(1, &
+m_dy
+, 
+wxNUM_VAL_NO_TRAILING_ZEROES
+);
+
+303 
+∑ømSizî
+->
+	`Add
+(
+√w
+ 
+	`wxTextCål
+(
+this
+, 
+wxID_ANY
+, "", 
+wxDeÁu…Posôi⁄
+, 
+wxDeÁu…Size
+, 0, 
+vÆ_dy
+), 
+	`wxSizîFœgs
+().
+	`CíåeVîtiˇl
+());
+
+304 
+∑ømSizî
+->
+	`Add
+(
+√w
+ 
+	`wxSèticText
+(
+this
+, 
+wxID_ANY
+, "SˇÀ X (0.2 - 5):"), 
+	`wxSizîFœgs
+().
+	`CíåeVîtiˇl
+());
+
+305 
+wxFlﬂtögPoötVÆid©‹
+<
+wxDoubÀ
+> 
+	`vÆ_scx
+(2, &
+m_scx
+, 
+wxNUM_VAL_NO_TRAILING_ZEROES
+);
+
+306 
+∑ømSizî
+->
+	`Add
+(
+√w
+ 
+	`wxTextCål
+(
+this
+, 
+wxID_ANY
+, "", 
+wxDeÁu…Posôi⁄
+, 
+wxDeÁu…Size
+, 0, 
+vÆ_scx
+), 
+	`wxSizîFœgs
+().
+	`CíåeVîtiˇl
+());
+
+307 
+∑ømSizî
+->
+	`Add
+(
+√w
+ 
+	`wxSèticText
+(
+this
+, 
+wxID_ANY
+, "SˇÀ Y (0.2 - 5):"), 
+	`wxSizîFœgs
+().
+	`CíåeVîtiˇl
+());
+
+308 
+wxFlﬂtögPoötVÆid©‹
+<
+wxDoubÀ
+> 
+	`vÆ_scy
+(2, &
+m_scy
+, 
+wxNUM_VAL_NO_TRAILING_ZEROES
+);
+
+309 
+∑ømSizî
+->
+	`Add
+(
+√w
+ 
+	`wxTextCål
+(
+this
+, 
+wxID_ANY
+, "", 
+wxDeÁu…Posôi⁄
+, 
+wxDeÁu…Size
+, 0, 
+vÆ_scy
+), 
+	`wxSizîFœgs
+().
+	`CíåeVîtiˇl
+());
+
+310 
+∑ømSizî
+->
+	`Add
+(
+√w
+ 
+	`wxSèticText
+(
+this
+, 
+wxID_ANY
+, "RŸ©i⁄ángÀ (deg):"), 
+	`wxSizîFœgs
+().
+	`CíåeVîtiˇl
+());
+
+311 
+wxFlﬂtögPoötVÆid©‹
+<
+wxDoubÀ
+> 
+	`vÆ_rŸ
+(1, &
+m_rŸAngÀ
+, 
+wxNUM_VAL_NO_TRAILING_ZEROES
+);
+
+312 
+∑ømSizî
+->
+	`Add
+(
+√w
+ 
+	`wxTextCål
+(
+this
+, 
+wxID_ANY
+, "", 
+wxDeÁu…Posôi⁄
+, 
+wxDeÁu…Size
+, 0, 
+vÆ_rŸ
+), 
+	`wxSizîFœgs
+().
+	`CíåeVîtiˇl
+());
+
+313 
+sizî
+->
+	`Add
+(
+∑ømSizî
+, 
+	`wxSizîFœgs
+().
+	`DoubÀB‹dî
+());
+
+315 
+wxSizî
+ *
+bäSizî
+ = 
+	`Cª©eSï¨©edBuâ⁄Sizî
+(
+wxOK
+ | 
+wxCANCEL
+);
+
+316 
+sizî
+->
+	`Add
+(
+bäSizî
+, 
+	`wxSizîFœgs
+().
+	`Ex∑nd
+().
+	`B‹dî
+());
+
+318 
+	`SëSizîAndFô
+(
+sizî
+);
+
+321 
+vútuÆ
+ 
+boﬁ
+ 
+	$Tøns„rD©aFromWödow
+(Ë
+wxOVERRIDE
+
+
+323 i‡–!
+wxDülog
+::
+	`Tøns„rD©aFromWödow
+() )
+
+324  
+Ál£
+;
+
+326 i‡–
+m_scx
+ < 0.2 || m_scx > 5.0 || 
+m_scy
+ < 0.2 || m_scy > 5.0 )
+
+328 i‡–!
+wxVÆid©‹
+::
+	`IsSûít
+() )
+
+329 
+	`wxBñl
+();
+
+331  
+Ál£
+;
+
+334  
+åue
+;
+
+335 
+	}
+}
+
+337 
+	$GëTønsf‹m©i⁄D©a
+(
+wxDoubÀ
+* 
+dx
+, wxDoubÀ* 
+dy
+, wxDoubÀ* 
+scx
+, wxDoubÀ* 
+scy
+, wxDoubÀ* 
+rŸAngÀ
+) const
+
+339 i‡–
+dx
+ )
+
+340 *
+dx
+ = 
+m_dx
+;
+
+342 i‡–
+dy
+ )
+
+343 *
+dy
+ = 
+m_dy
+;
+
+345 i‡–
+scx
+ )
+
+346 *
+scx
+ = 
+m_scx
+;
+
+348 i‡–
+scy
+ )
+
+349 *
+scy
+ = 
+m_scy
+;
+
+351 i‡–
+rŸAngÀ
+ )
+
+352 *
+rŸAngÀ
+ = 
+m_rŸAngÀ
+;
+
+353 
+	}
+}
+
+355 
+	g¥iv©e
+:
+
+356 
+wxDoubÀ
+ 
+m_dx
+;
+
+357 
+wxDoubÀ
+ 
+	gm_dy
+;
+
+358 
+wxDoubÀ
+ 
+	gm_scx
+;
+
+359 
+wxDoubÀ
+ 
+	gm_scy
+;
+
+360 
+wxDoubÀ
+ 
+	gm_rŸAngÀ
+;
+
+364 
+	gMyC™vas
+::~
+	$MyC™vas
+()
+
+367 
+	}
+}
+
+	@/home/vladyslav/CodeBlocks/WallEditor/src/event_handlers.cpp
+
+10 
+	~"WÆlEdô‹Maö.h
+"
+
+11 
+	~"MyC™vas.h
+"
+
+14 
+	gWÆlEdô‹Føme
+::
+	$OnClo£
+(
+wxClo£Evít
+ &
+evít
+)
+
+16 
+	`De°roy
+();
+
+17 
+	}
+}
+
+19 
+	gWÆlEdô‹Føme
+::
+	$OnQuô
+(
+wxComm™dEvít
+ &
+evít
+)
+
+21 
+	`De°roy
+();
+
+22 
+	}
+}
+
+24 
+	gWÆlEdô‹Føme
+::
+	$OnAbout
+(
+wxComm™dEvít
+ &
+evít
+)
+
+26 
+wxSåög
+ 
+msg
+ = "WallEditor for LemonWars v0.1";
+
+27 
+	`wxMesßgeBox
+(
+msg
+, 
+	`_
+("WelcomeÅo..."));
+
+28 
+	}
+}
+
+30 
+	gWÆlEdô‹Føme
+::
+	$OnO≥n
+(
+wxComm™dEvít
+ &
+evít
+)
+
+34 
+wxBôm≠
+ *
+ãmp_bôm≠
+ = 
+nuŒ±r
+;
+
+36 i‡(
+MyM≠
+)
+
+38 
+ãmp_bôm≠
+ = 
+MyM≠
+;
+
+46 
+boﬁ
+ 
+Fûe_lﬂded
+ = 
+Ál£
+;
+
+48 
+MyM≠
+ = 
+√w
+ 
+wxBôm≠
+;
+
+50 
+wxFûeDülog
+ 
+	`›íFûeDülog
+(
+this
+);
+
+52 i‡(
+›íFûeDülog
+.
+	`ShowModÆ
+(Ë=
+wxID_OK
+)
+
+54 
+wxSåög
+ 
+fûeName
+ = 
+›íFûeDülog
+.
+	`GëP©h
+();
+
+55 
+Fûe_lﬂded
+ = 
+MyM≠
+->
+	`LﬂdFûe
+(
+fûeName
+, 
+wxBITMAP_TYPE_ANY
+);
+
+59 i‡(
+Fûe_lﬂded
+)
+
+61 
+m_ˇnvas
+->
+	`SëM≠
+(
+MyM≠
+);
+
+62 i‡(
+ãmp_bôm≠
+Ë
+	`wxDELETE
+(temp_bitmap);
+
+67 
+unôs_x
+ = 
+MyM≠
+->
+	`GëWidth
+(Ë/ 
+s¸ﬁl_pix_≥r_unô
+;
+
+68 
+unôs_y
+ = 
+MyM≠
+->
+	`GëHeight
+(Ë/ 
+s¸ﬁl_pix_≥r_unô
+;
+
+70 
+m_ˇnvas
+->
+	`SëS¸ﬁlb¨s
+–
+s¸ﬁl_pix_≥r_unô
+*
+m_xU£rSˇÀ
+, s¸ﬁl_pix_≥r_unô*
+m_yU£rSˇÀ
+, 
+unôs_x
+, 
+unôs_y
+ );
+
+84 
+	}
+}
+
+90 
+	gMyC™vas
+::
+OnPaöt
+(
+wxPaötEvít
+ &
+	$WXUNUSED
+(
+evít
+))
+
+93 i‡–
+m_u£Buf„r
+ )
+
+95 
+wxBuf„ªdPaötDC
+ 
+	`bpdc
+(
+this
+);
+
+96 
+	`Døw
+(
+bpdc
+);
+
+100 
+wxPaötDC
+ 
+	`pdc
+(
+this
+);
+
+101 
+	`Døw
+(
+pdc
+);
+
+103 
+	}
+}
+
+106 
+	gMyC™vas
+::
+	$OnMou£Move
+(
+wxMou£Evít
+ &
+evít
+)
+
+108 #i‡
+wxUSE_STATUSBAR
+
+
+110 
+wxClõ¡DC
+ 
+	`dc
+(
+this
+);
+
+111 
+	`Pª∑ªDC
+(
+dc
+);
+
+112 
+m_ow√r
+->
+	`Pª∑ªDC
+(
+dc
+);
+
+114 
+wxPoöt
+ 
+pos
+ = 
+dc
+.
+	`Devi˚ToLogiˇl
+(
+evít
+.
+	`GëPosôi⁄
+());
+
+115 
+wxPoöt
+ 
+dùPos
+ = 
+dc
+.
+	`ToDIP
+(
+pos
+);
+
+116 
+wxSåög
+ 
+°r
+;
+
+117 
+°r
+.
+	`Prötf
+–"Mou£Öosôi⁄: %d,%d", 
+pos
+.
+x
+,Öos.
+y
+ );
+
+118 i‡–
+pos
+ !
+dùPos
+ )
+
+119 
+°r
+ +
+wxSåög
+::
+	`F‹m©
+("; DIPÖosôi⁄: %d,%d", 
+dùPos
+.
+x
+, dùPos.
+y
+);
+
+120 
+m_ow√r
+->
+	`SëSètusText
+–
+°r
+ );
+
+123 i‡–
+m_rubbîB™d
+ )
+
+125 
+x
+,
+y
+, 
+xx
+, 
+yy
+ ;
+
+126 
+evít
+.
+	`GëPosôi⁄
+(&
+x
+,&
+y
+);
+
+127 
+	`CÆcUns¸ﬁÀdPosôi⁄
+–
+x
+, 
+y
+, &
+xx
+, &
+yy
+ );
+
+128 
+m_cuºíçoöt
+ = 
+	`wxPoöt
+–
+xx
+ , 
+yy
+ ) ;
+
+129 
+wxRe˘
+ 
+	`√wª˘
+ ( 
+m_™ch‹poöt
+ , 
+m_cuºíçoöt
+ ) ;
+
+131 
+wxClõ¡DC
+ 
+	`dc
+–
+this
+ ) ;
+
+132 
+	`Pª∑ªDC
+–
+dc
+ ) ;
+
+134 
+wxDCOvîœy
+ 
+	`ovîœydc
+–
+m_ovîœy
+, &
+dc
+ );
+
+135 
+ovîœydc
+.
+	`CÀ¨
+();
+
+136 #ifde‡
+__WXMAC__
+
+
+137 
+dc
+.
+	`SëPí
+–*
+wxGREY_PEN
+ );
+
+138 
+dc
+.
+	`SëBrush
+–
+	`wxCﬁour
+( 192,192,192,64 ) );
+
+140 
+dc
+.
+	`SëPí
+–
+	`wxPí
+–*
+wxLIGHT_GREY
+, 2 ) );
+
+141 
+dc
+.
+	`SëBrush
+–*
+wxTRANSPARENT_BRUSH
+ );
+
+143 
+dc
+.
+	`DøwRe˘™gÀ
+–
+√wª˘
+ );
+
+146 
+	`wxUnu£dV¨
+(
+evít
+);
+
+148 
+	}
+}
+
+150 
+	gMyC™vas
+::
+	$OnMou£Down
+(
+wxMou£Evít
+ &
+evít
+)
+
+152 
+x
+,
+y
+,
+xx
+,
+yy
+ ;
+
+153 
+evít
+.
+	`GëPosôi⁄
+(&
+x
+,&
+y
+);
+
+154 
+	`CÆcUns¸ﬁÀdPosôi⁄
+–
+x
+, 
+y
+, &
+xx
+, &
+yy
+ );
+
+155 
+m_™ch‹poöt
+ = 
+	`wxPoöt
+–
+xx
+ , 
+yy
+ ) ;
+
+156 
+m_cuºíçoöt
+ = 
+m_™ch‹poöt
+ ;
+
+157 
+m_rubbîB™d
+ = 
+åue
+ ;
+
+158 
+	`C≠tuªMou£
+() ;
+
+159 
+	}
+}
+
+161 
+	gMyC™vas
+::
+	$OnMou£Up
+(
+wxMou£Evít
+ &
+evít
+)
+
+163 i‡–
+m_rubbîB™d
+ )
+
+165 
+	`Rñó£Mou£
+();
+
+167 
+wxClõ¡DC
+ 
+	`dc
+–
+this
+ );
+
+168 
+	`Pª∑ªDC
+–
+dc
+ );
+
+169 
+wxDCOvîœy
+ 
+	`ovîœydc
+–
+m_ovîœy
+, &
+dc
+ );
+
+170 
+ovîœydc
+.
+	`CÀ¨
+();
+
+172 
+m_ovîœy
+.
+	`Re£t
+();
+
+173 
+m_rubbîB™d
+ = 
+Ál£
+;
+
+175 
+wxPoöt
+ 
+ídpoöt
+ = 
+	`CÆcUns¸ﬁÀdPosôi⁄
+(
+evít
+.
+	`GëPosôi⁄
+());
+
+178 i‡–
+ídpoöt
+ !
+m_™ch‹poöt
+ )
+
+180 
+	`wxLogMesßge
+("SelectedÑectangle from (%d, %d)Åo (%d, %d)",
+
+181 
+m_™ch‹poöt
+.
+x
+, m_™ch‹poöt.
+y
+,
+
+182 
+ídpoöt
+.
+x
+,Éndpoöt.
+y
+);
+
+185 
+	}
+}
+
+	@/home/vladyslav/CodeBlocks/WallEditor/src/events.cpp
+
+10 
+	~"WÆlEdô‹Maö.h
+"
+
+11 
+	~"MyC™vas.h
+"
+
+19 
+	$wxBEGIN_EVENT_TABLE
+(
+MyC™vas
+, 
+wxS¸ﬁÀdWödow
+)
+
+20 
+	$EVT_PAINT
+ (
+MyC™vas
+::
+OnPaöt
+)
+
+21 
+	$EVT_MOTION
+ (
+MyC™vas
+::
+OnMou£Move
+)
+
+22 
+	$EVT_LEFT_DOWN
+ (
+MyC™vas
+::
+OnMou£Down
+)
+
+23 
+	$EVT_LEFT_UP
+ (
+MyC™vas
+::
+OnMou£Up
+)
+
+24 
+	$wxEND_EVENT_TABLE
+()
+
+27 
+	$BEGIN_EVENT_TABLE
+(
+WÆlEdô‹Føme
+, 
+wxFøme
+)
+
+28 
+	$EVT_CLOSE
+(
+WÆlEdô‹Føme
+::
+OnClo£
+)
+
+29 
+	$EVT_MENU
+(
+idMíuO≥n
+, 
+WÆlEdô‹Føme
+::
+OnO≥n
+)
+
+30 
+	$EVT_MENU
+(
+idMíuQuô
+, 
+WÆlEdô‹Føme
+::
+OnQuô
+)
+
+31 
+	$EVT_MENU
+(
+idMíuAbout
+, 
+WÆlEdô‹Føme
+::
+OnAbout
+)
+
+41 
+	`END_EVENT_TABLE
+()
+
+	@WallEditorApp.h
+
+10 #i‚de‡
+WALLEDITORAPP_H
+
+
+11 
+	#WALLEDITORAPP_H
+
+
+	)
+
+13 
+	~<wx/≠p.h
+>
+
+15 ˛as†
+	cWÆlEdô‹Aµ
+ : 
+public
+ 
+wxAµ
+
+
+17 
+public
+:
+
+18 
+vútuÆ
+ 
+boﬁ
+ 
+OnInô
+();
+
+	@WallEditorMain.h
+
+10 #i‚de‡
+WALLEDITORMAIN_H
+
+
+11 
+	#WALLEDITORMAIN_H
+
+
+	)
+
+13 #i‚de‡
+WX_PRECOMP
+
+
+14 
+	~<wx/wx.h
+>
+
+17 
+	~"WÆlEdô‹Aµ.h
+"
+
+19 
+˛ass
+ 
+	gMyC™vas
+;
+
+21 ˛as†
+	cWÆlEdô‹Føme
+: 
+public
+ 
+wxFøme
+
+
+23 
+public
+:
+
+24 
+WÆlEdô‹Føme
+(
+wxFøme
+ *
+‰ame
+, c⁄° 
+wxSåög
+& 
+tôÀ
+);
+
+25 
+MyC™vas
+ *
+	mm_ˇnvas
+;
+
+26 
+wxBôm≠
+ *
+	mMyM≠
+ = 
+nuŒ±r
+;
+
+29 
+	$Pª∑ªDC
+(
+wxDC
+& 
+dc
+Ë
+wxOVERRIDE
+;
+
+31 
+m_backgroundMode
+ = 
+wxBRUSHSTYLE_SOLID
+;
+
+34 
+m_xLogiˇlOrigö
+;
+
+35 
+m_yLogiˇlOrigö
+;
+
+36 
+boﬁ
+ 
+m_xAxisRevî£d
+,
+
+37 
+m_yAxisRevî£d
+;
+
+38 #i‡
+wxUSE_DC_TRANSFORM_MATRIX
+
+
+39 
+wxDoubÀ
+ 
+m_å™sf‹m_dx
+;
+
+40 
+wxDoubÀ
+ 
+m_å™sf‹m_dy
+;
+
+41 
+wxDoubÀ
+ 
+m_å™sf‹m_scx
+;
+
+42 
+wxDoubÀ
+ 
+m_å™sf‹m_scy
+;
+
+43 
+wxDoubÀ
+ 
+m_å™sf‹m_rŸ
+;
+
+45 
+m_xU£rSˇÀ
+,
+
+46 
+m_yU£rSˇÀ
+;
+
+51 
+vútuÆ
+ ~
+	`WÆlEdô‹Føme
+();
+
+52 
+¥iv©e
+:
+
+53 
+s¸ﬁl_pix_≥r_unô
+;
+
+57 
+idMíuQuô
+ = 1000,
+
+58 
+idMíuAbout
+,
+
+59 
+idMíuO≥n
+
+
+62 
+	`OnClo£
+(
+wxClo£Evít
+& 
+evít
+);
+
+63 
+	`OnO≥n
+(
+wxComm™dEvít
+& 
+evít
+);
+
+64 
+	`OnQuô
+(
+wxComm™dEvít
+& 
+evít
+);
+
+65 
+	`OnAbout
+(
+wxComm™dEvít
+& 
+evít
+);
+
+67 
+	`DECLARE_EVENT_TABLE
+()
+
+68 
+	}
+};
+
+	@
+1
+.
+1
+/usr/include
+10
+481
+/home/vladyslav/CodeBlocks/WallEditor/WallEditorApp.cpp
+/home/vladyslav/CodeBlocks/WallEditor/WallEditorApp.h
+/home/vladyslav/CodeBlocks/WallEditor/WallEditorMain.cpp
+/home/vladyslav/CodeBlocks/WallEditor/WallEditorMain.h
+/home/vladyslav/CodeBlocks/WallEditor/include/MyCanvas.h
+/home/vladyslav/CodeBlocks/WallEditor/src/MyCanvas.cpp
+/home/vladyslav/CodeBlocks/WallEditor/src/event_handlers.cpp
+/home/vladyslav/CodeBlocks/WallEditor/src/events.cpp
+WallEditorApp.h
+WallEditorMain.h

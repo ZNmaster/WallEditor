@@ -1,0 +1,67 @@
+#ifndef LEVELMAP_H
+#define LEVELMAP_H
+
+#include "GamePlayObj.h"
+#include "Wallbuilder.h"
+#include "LevelData.h"
+#include "Timer.h"
+
+
+class LevelMap : public GamePlayObj
+{
+    public:
+        //int number_of_enemies;
+
+        LevelMap();
+        LevelMap(LevelData *lev);
+        virtual ~LevelMap();
+
+        //position validator
+        bool valid_pos(int abs_x, int abs_y, int radius);
+
+        Wallbuilder levelwalls;
+
+        //touch radius of the player
+        int touch_radius = 50;
+
+        //nav points memory
+        LevelData *levelmem;
+
+
+        virtual void go_move();
+
+        // minimum and maximum partial start coordinates of the map (minimums = always zeros)
+        int map_min_x,
+            map_min_y,
+            map_max_x,
+            map_max_y;
+
+        //the copies of loaded_image_res just for convinience
+        int mapres_x,
+            mapres_y;
+
+        //position of the player
+        float player_pos_x,
+              player_pos_y;
+
+
+        void *player_ptr;
+
+        //the number of the enemies spawned
+        unsigned int number_of_enemies_spawned;
+
+
+        unsigned int bodycount;
+        unsigned int killstreak;
+        Timer killstreak_timer;
+
+
+
+    protected:
+
+    private:
+
+
+};
+
+#endif // LEVELMAP_H

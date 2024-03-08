@@ -1761,3 +1761,86 @@
 	"wx/validate.h"
 	<limits>
 
+1708701088 source:/home/vladyslav/CodeBlocks/WallEditor/src/event_handlers.cpp
+	"WallEditorMain.h"
+	"MyCanvas.h"
+
+1709922770 /home/vladyslav/CodeBlocks/WallEditor/include/MyCanvas.h
+	"wx/wxprec.h"
+	"wx/wx.h"
+	"wx/colordlg.h"
+	"wx/image.h"
+	"wx/artprov.h"
+	"wx/dcbuffer.h"
+	"wx/dcgraph.h"
+	"wx/overlay.h"
+	"wx/graphics.h"
+	"wx/filename.h"
+	"wx/metafile.h"
+	"wx/settings.h"
+	"wx/dcsvg.h"
+	"wx/dcps.h"
+	"LineA.h"
+
+1708355978 source:/home/vladyslav/CodeBlocks/WallEditor/src/events.cpp
+	"WallEditorMain.h"
+	"MyCanvas.h"
+
+1709925109 source:/home/vladyslav/CodeBlocks/WallEditor/src/MyCanvas.cpp
+	"MyCanvas.h"
+	"WallEditorMain.h"
+	"wx/valnum.h"
+
+1665166527 source:/home/vladyslav/CodeBlocks/WallEditor/WallEditorApp.cpp
+	"wx_pch.h"
+	"WallEditorApp.h"
+	"WallEditorMain.h"
+
+1665166528 /home/vladyslav/CodeBlocks/WallEditor/WallEditorApp.h
+	<wx/app.h>
+
+1709060753 /home/vladyslav/CodeBlocks/WallEditor/WallEditorMain.h
+	<wx/wx.h>
+	"WallEditorApp.h"
+
+1709922770 source:/home/vladyslav/CodeBlocks/WallEditor/WallEditorMain.cpp
+	"wx_pch.h"
+	"WallEditorMain.h"
+	"MyCanvas.h"
+
+1708701463 source:/home/vladyslav/CodeBlocks/WallEditor/src/Toolbars.cpp
+	"WallEditorMain.h"
+
+1709501507 /home/vladyslav/CodeBlocks/WallEditor/include/include_LW/LineA.h
+	"LineEq.h"
+	"Point_float.h"
+
+1637767598 /home/vladyslav/CodeBlocks/WallEditor/include/include_LW/LineEq.h
+	<Line.h>
+
+1637861336 /home/vladyslav/CodeBlocks/WallEditor/include/include_LW/Line.h
+
+1637767598 /home/vladyslav/CodeBlocks/WallEditor/include/include_LW/Point_float.h
+
+1709409682 source:/home/vladyslav/CodeBlocks/WallEditor/src/src_LW/Line.cpp
+	"Line.h"
+	<cmath>
+
+1709501605 source:/home/vladyslav/CodeBlocks/WallEditor/src/src_LW/LineA.cpp
+	"LineA.h"
+	<cmath>
+	"Geometry.h"
+	<algorithm>
+
+1666274809 /home/vladyslav/CodeBlocks/WallEditor/include/include_LW/Geometry.h
+	"Point_int.h"
+	"Point_float.h"
+
+1637767598 /home/vladyslav/CodeBlocks/WallEditor/include/include_LW/Point_int.h
+
+1637767598 source:/home/vladyslav/CodeBlocks/WallEditor/src/src_LW/LineEq.cpp
+	"LineEq.h"
+
+1666274810 source:/home/vladyslav/CodeBlocks/WallEditor/src/src_LW/Geometry.cpp
+	"Geometry.h"
+

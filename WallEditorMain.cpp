@@ -18,6 +18,28 @@
 #include "WallEditorMain.h"
 #include "MyCanvas.h"
 
+BEGIN_EVENT_TABLE(WallEditorFrame, wxFrame)
+    EVT_CLOSE(WallEditorFrame::OnClose)
+    EVT_MENU(idMenuOpen, WallEditorFrame::OnOpen)
+    EVT_MENU(idMenuQuit, WallEditorFrame::OnQuit)
+    EVT_MENU(idMenuAbout, WallEditorFrame::OnAbout)
+    EVT_TOOL(idToolWall, WallEditorFrame::OnWall)
+    EVT_TOOL(idToolPillar, WallEditorFrame::OnPillar)
+    //EVT_TOOL(idToolTexture, WallEditorFrame::OnTexture)
+    EVT_TOOL(idToolCharacter, WallEditorFrame::OnCharacter)
+    EVT_TOOL(idToolEntity, WallEditorFrame::OnEntity)
+    EVT_TOOL(idToolTrigger, WallEditorFrame::OnTrigger)
+
+    /*
+    EVT_MOTION(WallEditorFrame::OnMouseMove)
+    EVT_PAINT(WallEditorFrame::OnPaint)
+    #ifdef __WXGTK__
+    EVT_WINDOW_CREATE(WallEditorFrame::OnWindowCreate)
+    #endif
+    */
+
+END_EVENT_TABLE()
+
 //helper functions
 enum wxbuildinfoformat {
     short_f, long_f };
@@ -128,6 +150,8 @@ WallEditorFrame::WallEditorFrame(wxFrame *frame, const wxString& title)
 
     SetSize(FromDIP(wxSize(800, 700)));
     Center(wxBOTH);
+    CreateToolbars();
+
 
 }
 
@@ -147,6 +171,165 @@ void WallEditorFrame::PrepareDC(wxDC& dc)
     dc.SetAxisOrientation( !m_xAxisReversed, m_yAxisReversed );
     dc.SetUserScale( m_xUserScale, m_yUserScale );
     //dc.SetMapMode( m_mapMode );
+}
+
+void WallEditorFrame::CreateToolbars()
+{
+    wxBitmap exit(wxT("exit.PNG"), wxBITMAP_TYPE_PNG);
+    wxBitmap newb(wxT("test.PNG"), wxBITMAP_TYPE_PNG);
+    wxBitmap open(wxT("test.PNG"), wxBITMAP_TYPE_PNG);
+    wxBitmap save(wxT("test.PNG"), wxBITMAP_TYPE_PNG);
+    wxBitmap send(wxT("test.PNG"), wxBITMAP_TYPE_PNG);
+
+    wxBitmap wall(wxT("wall.PNG"), wxBITMAP_TYPE_PNG);
+    wxBitmap pillar(wxT("pillar.PNG"), wxBITMAP_TYPE_PNG);
+    wxBitmap tex_sel(wxT("tex_sel.PNG"), wxBITMAP_TYPE_PNG);
+    wxBitmap character(wxT("char.PNG"), wxBITMAP_TYPE_PNG);
+    wxBitmap entity(wxT("entity.PNG"), wxBITMAP_TYPE_PNG);
+    wxBitmap trigger(wxT("trigger.PNG"), wxBITMAP_TYPE_PNG);
+
+    //wxPanel *panel = new wxPanel(this, -1);
+
+    //wxBoxSizer *vbox = new wxBoxSizer(wxVERTICAL);
+
+    auto toolbar1 = this->CreateToolBar (wxBORDER_NONE|wxTB_FLAT|wxTB_TEXT);
+    toolbar1->SetToolBitmapSize(wxSize(32, 32));
+    //toolbar1->AddTool(idMenuFile_New, wxT("New"), newb);
+    //toolbar1->AddTool(idMenuFile_Send, wxT("Send"), send);
+    toolbar1->AddTool(idMenuOpen, wxT("Open"), open);
+    //toolbar1->AddTool(idMenuFile_Save, wxT("Save"), save);
+    toolbar1->AddTool(idToolWall, wxT("Wall tool"), wall);
+    toolbar1->AddTool(idToolPillar, wxT("Pillar tool"), pillar);
+    //toolbar1->AddTool(idToolTexture, wxT("Texture selector tool"), tex_sel);
+    toolbar1->AddTool(idToolCharacter, wxT("Character tool"), character);
+    toolbar1->AddTool(idToolEntity, wxT("Entity tool"), entity);
+    toolbar1->AddTool(idToolTrigger, wxT("Trigger tool"), trigger);
+
+    toolbar1->AddTool(wxID_EXIT, wxT("Exit application"), exit);
+
+    toolbar1->Realize();
+
+    //vbox->Add(toolbar1, 0, wxEXPAND);
+
+        Connect(wxID_EXIT, wxEVT_COMMAND_TOOL_CLICKED,
+        wxCommandEventHandler(WallEditorFrame::OnQuit));
+
+    //panel->SetSizer(vbox);
+
+    Centre();
+
+
+    return;
+}
+
+void WallEditorFrame::OnWall(wxCommandEvent& event)
+{
+     if (m_canvas->toolid == 1)
+     {
+         m_canvas->toolid = 0;
+     }
+     else
+     {
+         m_canvas->toolid = 1;
+     }
+}
+
+void WallEditorFrame::OnPillar(wxCommandEvent& event)
+{
+    wxLogMessage("Pillar");
+}
+
+/*void WallEditorFrame::OnTexture(wxCommandEvent& event)
+{
+
+}
+*/
+
+void WallEditorFrame::OnCharacter(wxCommandEvent& event)
+{
+    wxLogMessage("Character");
+}
+
+void WallEditorFrame::OnEntity(wxCommandEvent& event)
+{
+    wxLogMessage("Entity");
+}
+
+void WallEditorFrame::OnTrigger(wxCommandEvent& event)
+{
+    wxLogMessage("Trigger");
+}
+
+void WallEditorFrame::OnClose(wxCloseEvent &event)
+{
+    Destroy();
+}
+
+void WallEditorFrame::OnQuit(wxCommandEvent &event)
+{
+    Destroy();
+}
+
+void WallEditorFrame::OnAbout(wxCommandEvent &event)
+{
+    wxString msg = "WallEditor for LemonWars v0.1";
+    wxMessageBox(msg, _("Welcome to..."));
+}
+
+void WallEditorFrame::OnOpen(wxCommandEvent &event)
+{
+
+    //temp pointer to the old image to delete bitmap after a new one is set (otherwise the app will crash)
+    wxBitmap *temp_bitmap = nullptr;
+
+    if (MyMap)
+    {
+        temp_bitmap = MyMap;
+
+        //m_canvas->SetMap(nullptr);
+        //wxDELETE (MyMap);
+        //MyMap = nullptr;
+        //m_canvas->SetMap(MyMap);
+    }
+
+    bool File_loaded = false;
+
+    MyMap = new wxBitmap;
+
+    wxFileDialog openFileDialog(this);
+
+    if (openFileDialog.ShowModal() == wxID_OK)
+      {
+          wxString fileName = openFileDialog.GetPath();
+          File_loaded = MyMap->LoadFile(fileName, wxBITMAP_TYPE_ANY);
+      }
+    else return;
+
+    if (File_loaded)
+    {
+        m_canvas->SetMap(MyMap);
+        if (temp_bitmap) wxDELETE(temp_bitmap);
+    }
+
+    else return;
+
+    int units_x = MyMap->GetWidth() / scroll_pix_per_unit;
+    int units_y = MyMap->GetHeight() / scroll_pix_per_unit;
+
+    m_canvas->SetScrollbars( scroll_pix_per_unit*m_xUserScale, scroll_pix_per_unit*m_yUserScale, units_x, units_y );
+
+
+    //wxString msg = "Wanna open something?";
+    //wxMessageBox(msg, _("Welcome to..."));
+
+    //wxInitAllImageHandlers();
+
+    //wxImage image(wxT("Level.png"), wxBITMAP_TYPE_PNG);
+    //wxClientDC dc(m_canvas);
+
+    //m_canvas->Draw(dc);
+
+
 }
 
 WallEditorFrame::~WallEditorFrame()

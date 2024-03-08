@@ -21,9 +21,12 @@ class MyCanvas;
 class WallEditorFrame: public wxFrame
 {
     public:
+
         WallEditorFrame(wxFrame *frame, const wxString& title);
         MyCanvas   *m_canvas;
         wxBitmap   *MyMap = nullptr;
+
+        void CreateToolbars();
 
 
         void PrepareDC(wxDC& dc) wxOVERRIDE;
@@ -44,25 +47,42 @@ class WallEditorFrame: public wxFrame
     #endif // wxUSE_DC_TRANSFORM_MATRIX
         double      m_xUserScale,
                     m_yUserScale;
-
+        int scroll_pix_per_unit;
 
 
 
         virtual ~WallEditorFrame();
     private:
-        int scroll_pix_per_unit;
+
 
         enum
         {
             idMenuQuit = 1000,
             idMenuAbout,
-            idMenuOpen
+            idMenuOpen,
+            idToolWall,
+            idToolPillar,
+            //idToolTexture,
+            idToolCharacter,
+            idToolEntity,
+            idToolTrigger
         };
 
         void OnClose(wxCloseEvent& event);
         void OnOpen(wxCommandEvent& event);
         void OnQuit(wxCommandEvent& event);
         void OnAbout(wxCommandEvent& event);
+
+        void OnWall(wxCommandEvent& event);
+        void OnPillar(wxCommandEvent& event);
+        //void OnTexture(wxCommandEvent& event);
+        void OnCharacter(wxCommandEvent& event);
+        void OnEntity(wxCommandEvent& event);
+        void OnTrigger(wxCommandEvent& event);
+
+
+
+        wxToolBar *toolbar1;
 
         DECLARE_EVENT_TABLE()
 };

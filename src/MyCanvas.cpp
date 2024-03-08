@@ -11,6 +11,15 @@
 #include "MyCanvas.h"
 #include "WallEditorMain.h"
 
+wxBEGIN_EVENT_TABLE(MyCanvas, wxScrolledWindow)
+    EVT_PAINT  (MyCanvas::OnPaint)
+    EVT_MOTION (MyCanvas::OnMouseMove)
+    EVT_LEFT_DOWN (MyCanvas::OnMouseDown)
+    EVT_LEFT_UP (MyCanvas::OnMouseUp)
+    EVT_KEY_DOWN (MyCanvas::OnKeyDown)
+    EVT_KEY_UP (MyCanvas::OnKeyUp)
+wxEND_EVENT_TABLE()
+
 MyCanvas::MyCanvas(WallEditorFrame *parent)
         : wxScrolledWindow(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
                            wxHSCROLL | wxVSCROLL)
@@ -21,6 +30,7 @@ MyCanvas::MyCanvas(WallEditorFrame *parent)
     //m_std_icon = wxArtProvider::GetIcon(wxART_INFORMATION);
     m_clip = false;
     m_rubberBand = false;
+    m_ShiftKeyPressed = false;
 #if wxUSE_GRAPHICS_CONTEXT
     m_renderer = NULL;
     m_useAntiAliasing = true;
@@ -28,6 +38,7 @@ MyCanvas::MyCanvas(WallEditorFrame *parent)
     m_useBuffer = false;
     m_showBBox = false;
     m_sizeDIP = wxSize(0, 0);
+    toolid = 0;
 }
 
 void MyCanvas::SetMap(wxBitmap *Map_ptr)
@@ -252,6 +263,7 @@ void MyCanvas::Draw(wxDC& pdc)
         m_sizeDIP.x = dc.ToDIP(dc.LogicalToDeviceX(dc.MaxX()) - x0) + 1;
         m_sizeDIP.y = dc.ToDIP(dc.LogicalToDeviceY(dc.MaxY()) - y0) + 1;
     }
+
 }
 
 
@@ -360,6 +372,179 @@ private:
     wxDouble m_rotAngle;
 };
 #endif // wxUSE_DC_TRANSFORM_MATRIX
+
+void MyCanvas::OnPaint(wxPaintEvent &WXUNUSED(event))
+{
+
+    if ( m_useBuffer )
+    {
+        wxBufferedPaintDC bpdc(this);
+        Draw(bpdc);
+    }
+    else
+    {
+        wxPaintDC pdc(this);
+        Draw(pdc);
+    }
+}
+
+
+void MyCanvas::OnMouseMove(wxMouseEvent &event)
+{
+#if wxUSE_STATUSBAR
+    {
+        wxClientDC dc(this);
+        PrepareDC(dc);
+        m_owner->PrepareDC(dc);
+
+        wxPoint pos = dc.DeviceToLogical(event.GetPosition());
+        wxPoint dipPos = dc.ToDIP(pos);
+        wxString str;
+        str.Printf( "Mouse position: %d,%d", pos.x, pos.y );
+        if ( pos != dipPos )
+            str += wxString::Format("; DIP position: %d,%d", dipPos.x, dipPos.y);
+        m_owner->SetStatusText( str );
+    }
+
+    if ( m_rubberBand )
+    {
+        int x,y, xx, yy ;
+        event.GetPosition(&x,&y);
+        CalcUnscrolledPosition( x, y, &xx, &yy );
+        m_currentpoint = wxPoint( xx , yy ) ;
+
+        switch (toolid)
+        {
+        case 0:
+        {
+            wxRect newrect ( m_anchorpoint , m_currentpoint ) ;
+
+        wxClientDC dc( this ) ;
+        PrepareDC( dc ) ;
+
+        wxDCOverlay overlaydc( m_overlay, &dc );
+        overlaydc.Clear();
+#ifdef __WXMAC__
+        dc.SetPen( *wxGREY_PEN );
+        dc.SetBrush( wxColour( 192,192,192,64 ) );
+#else
+        if (m_ShiftKeyPressed)
+        {
+            dc.SetPen( wxPen( *wxRED, 2 ) );
+        }
+        else
+        {
+           dc.SetPen( wxPen( *wxLIGHT_GREY, 2 ) );
+        }
+
+        dc.SetBrush( *wxTRANSPARENT_BRUSH );
+#endif
+        dc.DrawRectangle( newrect );
+        break;
+        }
+        case 1:
+            {
+                wxClientDC dc( this ) ;
+                PrepareDC( dc ) ;
+
+                wxDCOverlay overlaydc( m_overlay, &dc );
+                overlaydc.Clear();
+#ifdef __WXMAC__
+                dc.SetPen( *wxGREY_PEN );
+                dc.SetBrush( wxColour( 192,192,192,64 ) );
+#else
+                // Set line color to black, fill color to green
+                dc.SetPen(wxPen(*wxCYAN, 2, wxSOLID));
+                dc.SetBrush(wxBrush(*wxCYAN, wxSOLID));
+#endif
+                dc.DrawLine(m_anchorpoint.x, m_anchorpoint.y, m_currentpoint.x, m_currentpoint.y);
+            break;
+            }
+
+        }
+
+    }
+#else
+    wxUnusedVar(event);
+#endif // wxUSE_STATUSBAR
+}
+
+void MyCanvas::OnMouseDown(wxMouseEvent &event)
+{
+    int x,y,xx,yy ;
+    event.GetPosition(&x,&y);
+    CalcUnscrolledPosition( x, y, &xx, &yy );
+    m_anchorpoint = wxPoint( xx , yy ) ;
+    m_currentpoint = m_anchorpoint ;
+    m_rubberBand = true ;
+    CaptureMouse() ;
+}
+
+void MyCanvas::OnMouseUp(wxMouseEvent &event)
+{
+    if ( m_rubberBand )
+    {
+        ReleaseMouse();
+        {
+            wxClientDC dc( this );
+            PrepareDC( dc );
+            wxDCOverlay overlaydc( m_overlay, &dc );
+            overlaydc.Clear();
+        }
+        m_overlay.Reset();
+        m_rubberBand = false;
+
+        wxPoint endpoint = CalcUnscrolledPosition(event.GetPosition());
+
+        switch(toolid)
+        {
+        case 0:
+            {
+            // Don't pop up the message box if nothing was actually selected.
+            if ( endpoint != m_anchorpoint )
+            {
+                wxLogMessage("Selected rectangle from (%d, %d) to (%d, %d)",
+                             m_anchorpoint.x, m_anchorpoint.y,
+                             endpoint.x, endpoint.y);
+                             m_ShiftKeyPressed = false;
+
+
+            }
+            break;
+            }
+        case 1:
+            {
+                LineA wall(m_anchorpoint.x, m_anchorpoint.y, endpoint.x, endpoint.y);
+                walls.push_back(wall);
+                break;
+            }
+
+        }
+
+
+    }
+}
+
+void MyCanvas::OnKeyDown(wxKeyEvent &event)
+{
+    int KeyCode = event.GetKeyCode();
+    if (KeyCode == WXK_SHIFT)
+        {
+            m_ShiftKeyPressed = true;
+        }
+    else
+        {
+            m_ShiftKeyPressed = false;
+        }
+}
+
+void MyCanvas::OnKeyUp(wxKeyEvent &event)
+{
+
+    int KeyCode = event.GetKeyCode();
+    m_ShiftKeyPressed = false;
+
+}
 
 MyCanvas::~MyCanvas()
 {

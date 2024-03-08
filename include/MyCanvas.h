@@ -45,6 +45,8 @@
 #define wxDRAWING_DC_SUPPORTS_ALPHA 0
 #endif // __WXOSX__ || __WXGTK3__
 
+#include "LineA.h"
+
 
 class WallEditorFrame;
 
@@ -58,6 +60,8 @@ public:
     void OnMouseMove(wxMouseEvent &event);
     void OnMouseDown(wxMouseEvent &event);
     void OnMouseUp(wxMouseEvent &event);
+    void OnKeyDown(wxKeyEvent &event);
+    void OnKeyUp(wxKeyEvent &event);
 
     void ToShow(int show) { m_show = show; Refresh(); }
     int GetPage() { return m_show; }
@@ -82,6 +86,10 @@ public:
 
     void SetMap(wxBitmap *Map_ptr);
     wxBitmap *MyMap = nullptr;
+
+    unsigned int toolid;
+
+    std::vector<LineA> walls;
 
 protected:
     enum DrawMode
@@ -123,6 +131,7 @@ private:
     bool         m_clip;
     wxOverlay    m_overlay;
     bool         m_rubberBand;
+    bool         m_ShiftKeyPressed;
     wxPoint      m_anchorpoint;
     wxPoint      m_currentpoint;
 #if wxUSE_GRAPHICS_CONTEXT
@@ -132,6 +141,8 @@ private:
     bool         m_useBuffer;
     bool         m_showBBox;
     wxSize       m_sizeDIP;
+
+
 
     // any class wishing to process wxWidgets events must use this macro
     wxDECLARE_EVENT_TABLE();
