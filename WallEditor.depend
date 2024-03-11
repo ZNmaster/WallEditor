@@ -1632,7 +1632,7 @@
 	"WallEditorMain.h"
 	"MyCanvas.h"
 
-1665602070 /home/vladyslav/WallEditor//WallEditorMain.h
+1709060753 /home/vladyslav/WallEditor//WallEditorMain.h
 	<wx/wx.h>
 	"WallEditorApp.h"
 
@@ -1765,7 +1765,7 @@
 	"WallEditorMain.h"
 	"MyCanvas.h"
 
-1709922770 /home/vladyslav/CodeBlocks/WallEditor/include/MyCanvas.h
+1710169846 /home/vladyslav/CodeBlocks/WallEditor/include/MyCanvas.h
 	"wx/wxprec.h"
 	"wx/wx.h"
 	"wx/colordlg.h"
@@ -1786,7 +1786,7 @@
 	"WallEditorMain.h"
 	"MyCanvas.h"
 
-1709925109 source:/home/vladyslav/CodeBlocks/WallEditor/src/MyCanvas.cpp
+1709992226 source:/home/vladyslav/CodeBlocks/WallEditor/src/MyCanvas.cpp
 	"MyCanvas.h"
 	"WallEditorMain.h"
 	"wx/valnum.h"

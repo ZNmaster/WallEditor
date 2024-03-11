@@ -91,6 +91,10 @@ public:
 
     std::vector<LineA> walls;
 
+    void *selected = nullptr;
+
+    void draw_walls(wxDC& dc);
+
 protected:
     enum DrawMode
     {

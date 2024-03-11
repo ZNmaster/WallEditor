@@ -73,6 +73,18 @@ void MyCanvas::DrawCrossHair(int x, int y, int width, int heigth, wxDC &dc)
 void MyCanvas::DrawDefault(wxDC& dc)
 {
    dc.DrawBitmap(*MyMap, dc.FromDIP(0), dc.FromDIP(0), true);
+   draw_walls(dc);
+}
+
+void MyCanvas::draw_walls(wxDC& dc)
+{
+    if (!(walls.begin() == walls.end()))
+    {
+        for(std::vector<LineA>::iterator it = walls.begin(); it < walls.end(); it++)
+        {
+            dc.DrawLine(it->x_start, it->y_start, it->x_end, it->y_end);
+        }
+    }
 }
 
 void MyCanvas::DrawText(wxDC& dc)
@@ -391,7 +403,7 @@ void MyCanvas::OnPaint(wxPaintEvent &WXUNUSED(event))
 
 void MyCanvas::OnMouseMove(wxMouseEvent &event)
 {
-#if wxUSE_STATUSBAR
+//#if wxUSE_STATUSBAR
     {
         wxClientDC dc(this);
         PrepareDC(dc);
@@ -453,9 +465,9 @@ void MyCanvas::OnMouseMove(wxMouseEvent &event)
                 dc.SetPen( *wxGREY_PEN );
                 dc.SetBrush( wxColour( 192,192,192,64 ) );
 #else
-                // Set line color to black, fill color to green
+                // Set line color to cyan, fill color to yellow
                 dc.SetPen(wxPen(*wxCYAN, 2, wxSOLID));
-                dc.SetBrush(wxBrush(*wxCYAN, wxSOLID));
+                dc.SetBrush(wxBrush(*wxYELLOW, wxSOLID));
 #endif
                 dc.DrawLine(m_anchorpoint.x, m_anchorpoint.y, m_currentpoint.x, m_currentpoint.y);
             break;
@@ -464,9 +476,9 @@ void MyCanvas::OnMouseMove(wxMouseEvent &event)
         }
 
     }
-#else
-    wxUnusedVar(event);
-#endif // wxUSE_STATUSBAR
+//#else
+//    wxUnusedVar(event);
+//#endif // wxUSE_STATUSBAR
 }
 
 void MyCanvas::OnMouseDown(wxMouseEvent &event)
@@ -498,6 +510,8 @@ void MyCanvas::OnMouseUp(wxMouseEvent &event)
 
         switch(toolid)
         {
+
+        //no tool selected
         case 0:
             {
             // Don't pop up the message box if nothing was actually selected.
@@ -512,10 +526,34 @@ void MyCanvas::OnMouseUp(wxMouseEvent &event)
             }
             break;
             }
+        //walls tool selected
         case 1:
             {
                 LineA wall(m_anchorpoint.x, m_anchorpoint.y, endpoint.x, endpoint.y);
                 walls.push_back(wall);
+                std::vector<LineA>::iterator it = walls.end();
+                it--;
+                selected = &(*it);
+
+                /*
+                wxClientDC dc( this ) ;
+                PrepareDC( dc ) ;
+
+                wxDCOverlay overlaydc( m_overlay, &dc );
+                overlaydc.Clear();
+#ifdef __WXMAC__
+                dc.SetPen( *wxGREY_PEN );
+                dc.SetBrush( wxColour( 192,192,192,64 ) );
+#else
+                // Set line color to cyan, fill color to yellow
+                dc.SetPen(wxPen(*wxCYAN, 2, wxSOLID));
+                dc.SetBrush(wxBrush(*wxBLACK, wxSOLID));
+#endif
+                dc.DrawLine(m_anchorpoint.x, m_anchorpoint.y, endpoint.x, endpoint.y);
+                */
+                Refresh();
+                Update();
+
                 break;
             }
 
