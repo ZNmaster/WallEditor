@@ -95,6 +95,8 @@ public:
 
     void draw_walls(wxDC& dc);
 
+    float nearest_wallend(wxPoint& wallstart, const wxPoint& anchor);
+
 protected:
     enum DrawMode
     {

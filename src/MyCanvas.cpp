@@ -78,13 +78,15 @@ void MyCanvas::DrawDefault(wxDC& dc)
 
 void MyCanvas::draw_walls(wxDC& dc)
 {
-    if (!(walls.begin() == walls.end()))
-    {
-        for(std::vector<LineA>::iterator it = walls.begin(); it < walls.end(); it++)
+        for(std::vector<LineA>::iterator it = walls.begin(); it != walls.end(); it++)
         {
             dc.DrawLine(it->x_start, it->y_start, it->x_end, it->y_end);
+            if (&(*it) == selected)
+            {
+                dc.DrawCircle(it->x_start, it->y_start, 5);
+                dc.DrawCircle(it->x_end, it->y_end, 5);
+            }
         }
-    }
 }
 
 void MyCanvas::DrawText(wxDC& dc)
@@ -469,6 +471,20 @@ void MyCanvas::OnMouseMove(wxMouseEvent &event)
                 dc.SetPen(wxPen(*wxCYAN, 2, wxSOLID));
                 dc.SetBrush(wxBrush(*wxYELLOW, wxSOLID));
 #endif
+                if (m_ShiftKeyPressed)
+                {
+                    unsigned int delta_x = abs(m_anchorpoint.x - m_currentpoint.x);
+                    unsigned int delta_y = abs(m_anchorpoint.y - m_currentpoint.y);
+
+                    if (delta_x <= delta_y)
+                    {
+                        m_currentpoint.x = m_anchorpoint.x;
+                    }
+                    else
+                    {
+                        m_currentpoint.y = m_anchorpoint.y;
+                    }
+                }
                 dc.DrawLine(m_anchorpoint.x, m_anchorpoint.y, m_currentpoint.x, m_currentpoint.y);
             break;
             }
@@ -490,6 +506,21 @@ void MyCanvas::OnMouseDown(wxMouseEvent &event)
     m_currentpoint = m_anchorpoint ;
     m_rubberBand = true ;
     CaptureMouse() ;
+    if(toolid == 1)
+    {
+        wxPoint wallstart(-1, -1);
+        float dist = nearest_wallend(wallstart, m_anchorpoint);
+
+        if (wallstart.x == -1)
+        {
+            return;
+        }
+
+        if (dist < 10)
+        {
+            m_anchorpoint = wallstart;
+        }
+    }
 }
 
 void MyCanvas::OnMouseUp(wxMouseEvent &event)
@@ -529,7 +560,23 @@ void MyCanvas::OnMouseUp(wxMouseEvent &event)
         //walls tool selected
         case 1:
             {
+                if (m_ShiftKeyPressed)
+                {
+                    unsigned int delta_x = abs(m_anchorpoint.x - endpoint.x);
+                    unsigned int delta_y = abs(m_anchorpoint.y - endpoint.y);
+
+                    if (delta_x <= delta_y)
+                    {
+                        endpoint.x = m_anchorpoint.x;
+                    }
+                    else
+                    {
+                        endpoint.y = m_anchorpoint.y;
+                    }
+                }
+
                 LineA wall(m_anchorpoint.x, m_anchorpoint.y, endpoint.x, endpoint.y);
+
                 walls.push_back(wall);
                 std::vector<LineA>::iterator it = walls.end();
                 it--;
@@ -582,6 +629,31 @@ void MyCanvas::OnKeyUp(wxKeyEvent &event)
     int KeyCode = event.GetKeyCode();
     m_ShiftKeyPressed = false;
 
+}
+
+float MyCanvas::nearest_wallend(wxPoint& wallstart, const wxPoint& anchor)
+{
+    float distance = 999999999;
+
+    for(auto wall:walls)
+    {
+        Line line1(wall.x_start, wall.y_start, anchor.x, anchor.y);
+        Line line2(wall.x_end, wall.y_end, anchor.x, anchor.y);
+        if (line1.len < distance)
+        {
+            distance = line1.len;
+            wallstart.x = wall.x_start;
+            wallstart.y = wall.y_start;
+        }
+        if (line2.len < distance)
+        {
+            distance = line2.len;
+            wallstart.x = wall.x_end;
+            wallstart.y = wall.y_end;
+        }
+    }
+
+    return distance;
 }
 
 MyCanvas::~MyCanvas()
