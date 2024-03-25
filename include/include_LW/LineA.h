@@ -15,6 +15,8 @@ class LineA : public LineEq
         bool almost_equal(float a, float b);
         Point_float intersection(LineEq line);
         bool in_range(float x, float y);
+        bool in_rangeX(float x, float y);
+        bool in_rangeY(float x, float y);
         float shortest_dist(float x, float y);
         virtual ~LineA();
 

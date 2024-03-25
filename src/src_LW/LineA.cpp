@@ -102,7 +102,7 @@ Point_float LineA::intersection(LineEq line)
     }
 }
 
-bool LineA::in_range(float x, float y)
+bool LineA::in_rangeX(float x, float y)
 {
     float x_max = x_end;
     float x_min = x_start;
@@ -111,19 +111,33 @@ bool LineA::in_range(float x, float y)
         std::swap(x_max, x_min);
     }
 
+    return ((x <= x_max) && (x >= x_min));
+}
+bool LineA::in_rangeY(float x, float y)
+{
     float y_max = y_end;
     float y_min = y_start;
     if (y_max < y_min)
     {
         std::swap(y_max, y_min);
     }
+    return ((y <= y_max) && (y >= y_min));
+}
 
-    return (((x <= x_max) && (x >= x_min)) && ((y <= y_max) && (y >= y_min)));
+
+bool LineA::in_range(float x, float y)
+{
+
+    return (in_rangeY(x, y) && in_rangeX (x, y));
 }
 
 float LineA::shortest_dist(float x, float y)
 {
-    if (!in_range(x, y))
+
+    if (horizontal && in_rangeX(x, y)) return abs(y - y_start);
+    else if (vertical && in_rangeY(x, y)) return abs(x - x_start);
+
+    else if (!in_range(x, y))
     {
         Line line1(x, y, x_start, y_start);
         Line line2(x, y, x_end, y_end);
@@ -132,11 +146,13 @@ float LineA::shortest_dist(float x, float y)
     }
 
     else
-    {
-        LineA line = normal(x, y);
 
-        return line.len;
-    }
+        {
+           LineA line = normal(x, y);
+
+           return line.len;
+        }
+
 }
 
 LineA::~LineA()

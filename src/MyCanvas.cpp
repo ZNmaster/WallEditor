@@ -506,21 +506,66 @@ void MyCanvas::OnMouseDown(wxMouseEvent &event)
     m_currentpoint = m_anchorpoint ;
     m_rubberBand = true ;
     CaptureMouse() ;
-    if(toolid == 1)
+
+    switch (toolid)
     {
-        wxPoint wallstart(-1, -1);
-        float dist = nearest_wallend(wallstart, m_anchorpoint);
+        //no tool selected
+        case 0:
+            {
+              break;
+            }
 
-        if (wallstart.x == -1)
-        {
-            return;
-        }
+        //wall tool
+        case 1:
+            {
+                wxPoint wallstart(-1, -1);
+                float dist = nearest_wallend(wallstart, m_anchorpoint);
 
-        if (dist < 10)
-        {
-            m_anchorpoint = wallstart;
+                if (wallstart.x != -1)
+                {
+
+                    if (dist < 10)
+                    {
+                        m_anchorpoint = wallstart;
+                    }
+
+                }
+
+                break;
         }
+        //selection tool
+        case 2:
+            {
+                float ref_dist = 999999999;
+                void *current_selected = nullptr;
+
+                for(std::vector<LineA>::iterator it = walls.begin(); it != walls.end(); it++)
+                {
+                    float dist1 = it->shortest_dist(m_anchorpoint.x, m_anchorpoint.y);
+
+                    if(dist1 < ref_dist)
+                    {
+                        current_selected = &(*it);
+                        ref_dist = dist1;
+                    }
+                }
+
+                float select_tool_range = 150;
+                if (current_selected && (ref_dist < select_tool_range))
+                {
+                    selected = current_selected;
+                    Refresh();
+                    Update();
+                }
+                break;
+            }
+        default :
+            {
+                break;
+            }
+
     }
+
 }
 
 void MyCanvas::OnMouseUp(wxMouseEvent &event)
