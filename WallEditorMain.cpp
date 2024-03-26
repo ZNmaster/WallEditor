@@ -257,7 +257,15 @@ void WallEditorFrame::OnEntity(wxCommandEvent& event)
 
 void WallEditorFrame::OnTrigger(wxCommandEvent& event)
 {
-    wxLogMessage("Trigger");
+    if (m_canvas->toolid == 2)
+    {
+        m_canvas->toolid = 0;
+    }
+    else
+    {
+        m_canvas->toolid = 2;
+    }
+    //wxLogMessage("Trigger");
 }
 
 void WallEditorFrame::OnClose(wxCloseEvent &event)

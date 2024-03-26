@@ -35,7 +35,7 @@ LineA LineA::normal(float x1, float y1)
     else if (horizontal)
     {
         //return vertical line passing via (x1, y1)
-        return LineA(x1,y1, x1, y_start);
+        return LineA(x1, y1, x1, y_start);
 
     }
 
@@ -50,8 +50,11 @@ LineA LineA::normal(float x1, float y1)
 
         float x0 = (b2 - b1) / (a1 - a2);
         float y0 = a * x0 + b;
+        LineA line(x1, y1, x0, y0);
 
-        return LineA(x1, y1, x0, y0);
+        Point_float intersec_point = intersection(line);
+
+        return LineA(x1, y1, intersec_point.x, intersec_point.y);
 
     }
 
@@ -137,21 +140,19 @@ float LineA::shortest_dist(float x, float y)
     if (horizontal && in_rangeX(x, y)) return abs(y - y_start);
     else if (vertical && in_rangeY(x, y)) return abs(x - x_start);
 
-    else if (!in_range(x, y))
+    LineA line = normal(x, y);
+
+
+    if (in_range(line.x_end, line.y_end)) return line.len;
+
+
+    else
     {
         Line line1(x, y, x_start, y_start);
         Line line2(x, y, x_end, y_end);
 
         return std::min(line1.len, line2.len);
     }
-
-    else
-
-        {
-           LineA line = normal(x, y);
-
-           return line.len;
-        }
 
 }
 
