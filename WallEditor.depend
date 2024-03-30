@@ -1765,7 +1765,7 @@
 	"WallEditorMain.h"
 	"MyCanvas.h"
 
-1711376919 /home/vladyslav/CodeBlocks/WallEditor/include/MyCanvas.h
+1711830137 /home/vladyslav/CodeBlocks/WallEditor/include/MyCanvas.h
 	"wx/wxprec.h"
 	"wx/wx.h"
 	"wx/colordlg.h"
@@ -1780,13 +1780,13 @@
 	"wx/settings.h"
 	"wx/dcsvg.h"
 	"wx/dcps.h"
-	"LineA.h"
+	"Wall.h"
 
 1708355978 source:/home/vladyslav/CodeBlocks/WallEditor/src/events.cpp
 	"WallEditorMain.h"
 	"MyCanvas.h"
 
-1711377372 source:/home/vladyslav/CodeBlocks/WallEditor/src/MyCanvas.cpp
+1711826433 source:/home/vladyslav/CodeBlocks/WallEditor/src/MyCanvas.cpp
 	"MyCanvas.h"
 	"WallEditorMain.h"
 	"wx/valnum.h"
@@ -1826,7 +1826,7 @@
 	"Line.h"
 	<cmath>
 
-1711375236 source:/home/vladyslav/CodeBlocks/WallEditor/src/src_LW/LineA.cpp
+1711458569 source:/home/vladyslav/CodeBlocks/WallEditor/src/src_LW/LineA.cpp
 	"LineA.h"
 	<cmath>
 	"Geometry.h"
@@ -1843,4 +1843,10 @@
 
 1666274810 source:/home/vladyslav/CodeBlocks/WallEditor/src/src_LW/Geometry.cpp
 	"Geometry.h"
+
+1711826433 /home/vladyslav/CodeBlocks/WallEditor/include/Wall.h
+	<LineA.h>
+
+1711826433 source:/home/vladyslav/CodeBlocks/WallEditor/src/Wall.cpp
+	"Wall.h"
 

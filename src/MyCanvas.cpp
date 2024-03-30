@@ -10,6 +10,8 @@
 
 #include "MyCanvas.h"
 #include "WallEditorMain.h"
+#define CREATED 1
+#define DELETED 2
 
 wxBEGIN_EVENT_TABLE(MyCanvas, wxScrolledWindow)
     EVT_PAINT  (MyCanvas::OnPaint)
@@ -78,8 +80,9 @@ void MyCanvas::DrawDefault(wxDC& dc)
 
 void MyCanvas::draw_walls(wxDC& dc)
 {
-        for(std::vector<LineA>::iterator it = walls.begin(); it != walls.end(); it++)
+        for(std::vector<Wall>::iterator it = walls.begin(); it != walls.end(); it++)
         {
+            if (it->deleted) continue;
             dc.DrawLine(it->x_start, it->y_start, it->x_end, it->y_end);
             if (&(*it) == selected)
             {
@@ -539,7 +542,7 @@ void MyCanvas::OnMouseDown(wxMouseEvent &event)
                 float ref_dist = 999999999;
                 void *current_selected = nullptr;
 
-                for(std::vector<LineA>::iterator it = walls.begin(); it != walls.end(); it++)
+                for(std::vector<Wall>::iterator it = walls.begin(); it != walls.end(); it++)
                 {
                     float dist1 = it->shortest_dist(m_anchorpoint.x, m_anchorpoint.y);
 
@@ -620,12 +623,14 @@ void MyCanvas::OnMouseUp(wxMouseEvent &event)
                     }
                 }
 
-                LineA wall(m_anchorpoint.x, m_anchorpoint.y, endpoint.x, endpoint.y);
+                Wall wall(m_anchorpoint.x, m_anchorpoint.y, endpoint.x, endpoint.y);
 
                 walls.push_back(wall);
-                std::vector<LineA>::iterator it = walls.end();
+                std::vector<Wall>::iterator it = walls.end();
                 it--;
                 selected = &(*it);
+                undo_list.push_back(&(*it));
+                action_log.push_back(CREATED);
 
                 /*
                 wxClientDC dc( this ) ;
@@ -661,6 +666,17 @@ void MyCanvas::OnKeyDown(wxKeyEvent &event)
     if (KeyCode == WXK_SHIFT)
         {
             m_ShiftKeyPressed = true;
+        }
+    else if(KeyCode == WXK_DELETE)
+        {
+            bool success;
+            if(selected) success = delete_map_obj(selected);
+            if(success)
+            {
+                selected = nullptr;
+                Refresh();
+                Update();
+            }
         }
     else
         {
@@ -699,6 +715,27 @@ float MyCanvas::nearest_wallend(wxPoint& wallstart, const wxPoint& anchor)
     }
 
     return distance;
+}
+
+bool MyCanvas::delete_map_obj(void *object)
+{
+    for(std::vector<Wall>::iterator it = walls.begin(); it != walls.end(); it++)
+    {
+        if (&(*it) == object)
+        {
+            it->deleted = 1;
+
+            void* deleted_obj = &(*it);
+            undo_list.push_back(deleted_obj);
+            action_log.push_back(DELETED);
+
+            Refresh();
+            Update();
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
 MyCanvas::~MyCanvas()

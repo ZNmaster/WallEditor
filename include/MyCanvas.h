@@ -45,7 +45,7 @@
 #define wxDRAWING_DC_SUPPORTS_ALPHA 0
 #endif // __WXOSX__ || __WXGTK3__
 
-#include "LineA.h"
+#include "Wall.h"
 
 
 class WallEditorFrame;
@@ -89,12 +89,17 @@ public:
 
     unsigned int toolid;
 
-    std::vector<LineA> walls;
+    std::vector<Wall> walls;
+    std::vector<void *> undo_list;
+    std::vector<unsigned int> action_log;
 
+    //pointer to selected map object
     void *selected = nullptr;
 
+    //drawing walls
     void draw_walls(wxDC& dc);
 
+    //finds a distance to nearest wall end of all walls in vector
     float nearest_wallend(wxPoint& wallstart, const wxPoint& anchor);
 
 protected:
@@ -147,6 +152,8 @@ private:
     bool         m_useBuffer;
     bool         m_showBBox;
     wxSize       m_sizeDIP;
+
+    bool delete_map_obj(void *object);
 
 
 

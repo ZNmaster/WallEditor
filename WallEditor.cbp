@@ -50,7 +50,9 @@
 		<Unit filename="WallEditorMain.cpp" />
 		<Unit filename="WallEditorMain.h" />
 		<Unit filename="include/MyCanvas.h" />
+		<Unit filename="include/Wall.h" />
 		<Unit filename="src/MyCanvas.cpp" />
+		<Unit filename="src/Wall.cpp" />
 		<Unit filename="src/src_LW/Geometry.cpp" />
 		<Unit filename="src/src_LW/Line.cpp" />
 		<Unit filename="src/src_LW/LineA.cpp" />
