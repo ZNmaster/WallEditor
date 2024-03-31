@@ -50,8 +50,13 @@
 		<Unit filename="WallEditorMain.cpp" />
 		<Unit filename="WallEditorMain.h" />
 		<Unit filename="include/MyCanvas.h" />
+		<Unit filename="include/NavPoint.h" />
+		<Unit filename="include/RedoStorage.h" />
 		<Unit filename="include/Wall.h" />
+		<Unit filename="include/include_LW/Geometry.h" />
 		<Unit filename="src/MyCanvas.cpp" />
+		<Unit filename="src/NavPoint.cpp" />
+		<Unit filename="src/RedoStorage.cpp" />
 		<Unit filename="src/Wall.cpp" />
 		<Unit filename="src/src_LW/Geometry.cpp" />
 		<Unit filename="src/src_LW/Line.cpp" />

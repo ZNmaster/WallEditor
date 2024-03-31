@@ -52,6 +52,7 @@ class WallEditorFrame: public wxFrame
 
 
         virtual ~WallEditorFrame();
+
     private:
 
 
@@ -60,6 +61,8 @@ class WallEditorFrame: public wxFrame
             idMenuQuit = 1000,
             idMenuAbout,
             idMenuOpen,
+            idMenuUndo,
+            idMenuRedo,
             idToolWall,
             idToolPillar,
             //idToolTexture,
@@ -70,6 +73,8 @@ class WallEditorFrame: public wxFrame
 
         void OnClose(wxCloseEvent& event);
         void OnOpen(wxCommandEvent& event);
+        void OnUndo(wxCommandEvent& event);
+        void OnRedo(wxCommandEvent& event);
         void OnQuit(wxCommandEvent& event);
         void OnAbout(wxCommandEvent& event);
 
@@ -83,6 +88,8 @@ class WallEditorFrame: public wxFrame
 
 
         wxToolBar *toolbar1;
+
+        bool ProcessEvent(wxEvent& event);
 
         DECLARE_EVENT_TABLE()
 };

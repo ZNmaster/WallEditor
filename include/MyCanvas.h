@@ -102,6 +102,9 @@ public:
     //finds a distance to nearest wall end of all walls in vector
     float nearest_wallend(wxPoint& wallstart, const wxPoint& anchor);
 
+    void undo();
+    void redo();
+
 protected:
     enum DrawMode
     {
@@ -154,6 +157,11 @@ private:
     wxSize       m_sizeDIP;
 
     bool delete_map_obj(void *object);
+
+    inline void redraw_canvas();
+    inline void register_deleted(void *object);
+    inline void register_created(void *object);
+
 
 
 

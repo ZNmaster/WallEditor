@@ -544,6 +544,8 @@ void MyCanvas::OnMouseDown(wxMouseEvent &event)
 
                 for(std::vector<Wall>::iterator it = walls.begin(); it != walls.end(); it++)
                 {
+
+                    if (it->deleted) continue;
                     float dist1 = it->shortest_dist(m_anchorpoint.x, m_anchorpoint.y);
 
                     if(dist1 < ref_dist)
@@ -557,8 +559,7 @@ void MyCanvas::OnMouseDown(wxMouseEvent &event)
                 if (current_selected && (ref_dist < select_tool_range))
                 {
                     selected = current_selected;
-                    Refresh();
-                    Update();
+                    redraw_canvas();
                 }
                 break;
             }
@@ -629,8 +630,7 @@ void MyCanvas::OnMouseUp(wxMouseEvent &event)
                 std::vector<Wall>::iterator it = walls.end();
                 it--;
                 selected = &(*it);
-                undo_list.push_back(&(*it));
-                action_log.push_back(CREATED);
+                register_created(selected);
 
                 /*
                 wxClientDC dc( this ) ;
@@ -648,8 +648,7 @@ void MyCanvas::OnMouseUp(wxMouseEvent &event)
 #endif
                 dc.DrawLine(m_anchorpoint.x, m_anchorpoint.y, endpoint.x, endpoint.y);
                 */
-                Refresh();
-                Update();
+                redraw_canvas();
 
                 break;
             }
@@ -674,8 +673,7 @@ void MyCanvas::OnKeyDown(wxKeyEvent &event)
             if(success)
             {
                 selected = nullptr;
-                Refresh();
-                Update();
+                redraw_canvas();
             }
         }
     else
@@ -726,16 +724,43 @@ bool MyCanvas::delete_map_obj(void *object)
             it->deleted = 1;
 
             void* deleted_obj = &(*it);
-            undo_list.push_back(deleted_obj);
-            action_log.push_back(DELETED);
 
-            Refresh();
-            Update();
+            register_deleted(deleted_obj);
+
+            redraw_canvas();
             return 1;
         }
     }
 
     return 0;
+}
+
+void MyCanvas::redraw_canvas()
+{
+    Refresh();
+    Update();
+}
+
+void MyCanvas::register_deleted(void *object)
+{
+    undo_list.push_back(object);
+    action_log.push_back(DELETED);
+}
+
+void MyCanvas::register_created(void *object)
+{
+    undo_list.push_back(object);
+    action_log.push_back(CREATED);
+}
+
+void MyCanvas::undo()
+{
+    wxLogMessage("Undo");
+}
+
+void MyCanvas::redo()
+{
+    wxLogMessage("Redo");
 }
 
 MyCanvas::~MyCanvas()

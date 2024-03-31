@@ -23,6 +23,9 @@ BEGIN_EVENT_TABLE(WallEditorFrame, wxFrame)
     EVT_MENU(idMenuOpen, WallEditorFrame::OnOpen)
     EVT_MENU(idMenuQuit, WallEditorFrame::OnQuit)
     EVT_MENU(idMenuAbout, WallEditorFrame::OnAbout)
+    EVT_MENU(idMenuUndo, WallEditorFrame::OnUndo)
+    EVT_MENU(idMenuRedo, WallEditorFrame::OnRedo)
+
     EVT_TOOL(idToolWall, WallEditorFrame::OnWall)
     EVT_TOOL(idToolPillar, WallEditorFrame::OnPillar)
     //EVT_TOOL(idToolTexture, WallEditorFrame::OnTexture)
@@ -97,6 +100,11 @@ WallEditorFrame::WallEditorFrame(wxFrame *frame, const wxString& title)
     fileMenu->Append(idMenuQuit, _("&Quit\tAlt-F4"), _("Quit the application"));
     fileMenu->Append(idMenuOpen, _("&Open\tCtrl-O"), _("Open file"));
     mbar->Append(fileMenu, _("&File"));
+
+    wxMenu* editMenu = new wxMenu(_T(""));
+    editMenu->Append(idMenuUndo, _("&Undo\tCtrl-Z"), _("Undo"));
+    editMenu->Append(idMenuRedo, _("&Redo\tCtrl-Y"), _("Redo"));
+    mbar->Append(editMenu, _("&Edit"));
 
     wxMenu* helpMenu = new wxMenu(_T(""));
     helpMenu->Append(idMenuAbout, _("&About\tF1"), _("Show info about this application"));
@@ -278,6 +286,16 @@ void WallEditorFrame::OnQuit(wxCommandEvent &event)
     Destroy();
 }
 
+void WallEditorFrame::OnUndo(wxCommandEvent &event)
+{
+    m_canvas->undo();
+}
+
+void WallEditorFrame::OnRedo(wxCommandEvent &event)
+{
+    m_canvas->redo();
+}
+
 void WallEditorFrame::OnAbout(wxCommandEvent &event)
 {
     wxString msg = "WallEditor for LemonWars v0.1";
@@ -339,6 +357,35 @@ void WallEditorFrame::OnOpen(wxCommandEvent &event)
 
 
 }
+
+bool WallEditorFrame::ProcessEvent(wxEvent& event)
+{
+     static wxEvent* s_lastEvent = NULL;
+     // Check for infinite recursion
+     if (& event == s_lastEvent)
+         return false;
+     if (event.IsCommandEvent() &&
+        !event.IsKindOf(CLASSINFO(wxChildFocusEvent)) &&
+        !event.IsKindOf(CLASSINFO(wxContextMenuEvent)))
+     {
+         s_lastEvent = & event;
+         wxControl *focusWin = wxDynamicCast(FindFocus(), wxControl);
+         bool success = false;
+         if (focusWin)
+             success = focusWin->GetEventHandler()
+                                 ->ProcessEvent(event);
+         if (!success)
+             success = wxFrame::ProcessEvent(event);
+         s_lastEvent = NULL;
+         return success;
+     }
+
+     else
+
+     {
+         return wxFrame::ProcessEvent(event);
+     }
+ }
 
 WallEditorFrame::~WallEditorFrame()
 {
