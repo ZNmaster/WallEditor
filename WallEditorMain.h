@@ -89,6 +89,7 @@ class WallEditorFrame: public wxFrame
 
         wxToolBar *toolbar1;
 
+        //To redirect KEY events from Controls
         bool ProcessEvent(wxEvent& event);
 
         DECLARE_EVENT_TABLE()

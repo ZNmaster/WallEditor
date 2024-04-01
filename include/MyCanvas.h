@@ -45,7 +45,8 @@
 #define wxDRAWING_DC_SUPPORTS_ALPHA 0
 #endif // __WXOSX__ || __WXGTK3__
 
-#include "Wall.h"
+#include "RedoStorage.h"
+#include <list>
 
 
 class WallEditorFrame;
@@ -89,9 +90,13 @@ public:
 
     unsigned int toolid;
 
-    std::vector<Wall> walls;
+    std::list<Wall> walls;
+
+    //pointers and the last actions on the object created or deleted
     std::vector<void *> undo_list;
     std::vector<unsigned int> action_log;
+
+    std::vector<RedoStorage> redo_list;
 
     //pointer to selected map object
     void *selected = nullptr;

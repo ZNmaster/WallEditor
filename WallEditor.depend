@@ -1632,7 +1632,7 @@
 	"WallEditorMain.h"
 	"MyCanvas.h"
 
-1709060753 /home/vladyslav/WallEditor//WallEditorMain.h
+1711921836 /home/vladyslav/WallEditor//WallEditorMain.h
 	<wx/wx.h>
 	"WallEditorApp.h"
 
@@ -1765,7 +1765,7 @@
 	"WallEditorMain.h"
 	"MyCanvas.h"
 
-1711920402 /home/vladyslav/CodeBlocks/WallEditor/include/MyCanvas.h
+1712009335 /home/vladyslav/CodeBlocks/WallEditor/include/MyCanvas.h
 	"wx/wxprec.h"
 	"wx/wx.h"
 	"wx/colordlg.h"
@@ -1780,13 +1780,14 @@
 	"wx/settings.h"
 	"wx/dcsvg.h"
 	"wx/dcps.h"
-	"Wall.h"
+	"RedoStorage.h"
+	<list>
 
 1708355978 source:/home/vladyslav/CodeBlocks/WallEditor/src/events.cpp
 	"WallEditorMain.h"
 	"MyCanvas.h"
 
-1711920402 source:/home/vladyslav/CodeBlocks/WallEditor/src/MyCanvas.cpp
+1712009497 source:/home/vladyslav/CodeBlocks/WallEditor/src/MyCanvas.cpp
 	"MyCanvas.h"
 	"WallEditorMain.h"
 	"wx/valnum.h"
@@ -1799,7 +1800,7 @@
 1665166528 /home/vladyslav/CodeBlocks/WallEditor/WallEditorApp.h
 	<wx/app.h>
 
-1711921836 /home/vladyslav/CodeBlocks/WallEditor/WallEditorMain.h
+1711979356 /home/vladyslav/CodeBlocks/WallEditor/WallEditorMain.h
 	<wx/wx.h>
 	"WallEditorApp.h"
 
@@ -1850,11 +1851,12 @@
 1711826433 source:/home/vladyslav/CodeBlocks/WallEditor/src/Wall.cpp
 	"Wall.h"
 
-1711923027 source:/home/vladyslav/CodeBlocks/WallEditor/src/RedoStorage.cpp
+1712005430 source:/home/vladyslav/CodeBlocks/WallEditor/src/RedoStorage.cpp
 	"RedoStorage.h"
 
-1711923325 /home/vladyslav/CodeBlocks/WallEditor/include/RedoStorage.h
+1712005430 /home/vladyslav/CodeBlocks/WallEditor/include/RedoStorage.h
 	"Wall.h"
+	"NavPoint.h"
 
 1711923901 source:/home/vladyslav/CodeBlocks/WallEditor/src/NavPoint.cpp
 	"NavPoint.h"

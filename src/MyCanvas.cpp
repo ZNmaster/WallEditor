@@ -80,7 +80,7 @@ void MyCanvas::DrawDefault(wxDC& dc)
 
 void MyCanvas::draw_walls(wxDC& dc)
 {
-        for(std::vector<Wall>::iterator it = walls.begin(); it != walls.end(); it++)
+        for(auto it = walls.begin(); it != walls.end(); it++)
         {
             if (it->deleted) continue;
             dc.DrawLine(it->x_start, it->y_start, it->x_end, it->y_end);
@@ -542,7 +542,7 @@ void MyCanvas::OnMouseDown(wxMouseEvent &event)
                 float ref_dist = 999999999;
                 void *current_selected = nullptr;
 
-                for(std::vector<Wall>::iterator it = walls.begin(); it != walls.end(); it++)
+                for(auto it = walls.begin(); it != walls.end(); it++)
                 {
 
                     if (it->deleted) continue;
@@ -627,7 +627,7 @@ void MyCanvas::OnMouseUp(wxMouseEvent &event)
                 Wall wall(m_anchorpoint.x, m_anchorpoint.y, endpoint.x, endpoint.y);
 
                 walls.push_back(wall);
-                std::vector<Wall>::iterator it = walls.end();
+                auto it = walls.end();
                 it--;
                 selected = &(*it);
                 register_created(selected);
@@ -678,7 +678,11 @@ void MyCanvas::OnKeyDown(wxKeyEvent &event)
         }
     else
         {
-            m_ShiftKeyPressed = false;
+
+            //this is to pass the rest of the KEY events to menu handlers
+            event.Skip();
+            //m_ShiftKeyPressed = false;
+
         }
 }
 
@@ -717,7 +721,7 @@ float MyCanvas::nearest_wallend(wxPoint& wallstart, const wxPoint& anchor)
 
 bool MyCanvas::delete_map_obj(void *object)
 {
-    for(std::vector<Wall>::iterator it = walls.begin(); it != walls.end(); it++)
+    for(auto it = walls.begin(); it != walls.end(); it++)
     {
         if (&(*it) == object)
         {
@@ -727,7 +731,7 @@ bool MyCanvas::delete_map_obj(void *object)
 
             register_deleted(deleted_obj);
 
-            redraw_canvas();
+            //redraw_canvas();
             return 1;
         }
     }
@@ -755,7 +759,36 @@ void MyCanvas::register_created(void *object)
 
 void MyCanvas::undo()
 {
-    wxLogMessage("Undo");
+    if (undo_list.end() == undo_list.begin()) return;
+
+    auto it1 = undo_list.end() - 1;
+    auto it2 = action_log.end() - 1;
+
+    if (*it2 == CREATED)
+    {
+        auto it3 = walls.end();
+        it3 --;
+        if (&(*it3) == *it1)
+        {
+            walls.erase(it3);
+
+        }
+    }
+    else
+    {
+        for(auto it = walls.begin(); it != walls.end(); it++)
+        {
+            if (&(*it) == *it1)
+            {
+                it->deleted = 0;
+            }
+        }
+    }
+
+    undo_list.erase(it1);
+    action_log.erase(it2);
+    redraw_canvas();
+    //wxLogMessage("Undo");
 }
 
 void MyCanvas::redo()
