@@ -1,6 +1,7 @@
 #include "RedoStorage.h"
 #define WALL 1
 #define NAVPOINT 2
+#define MARKDELETED 3
 
 RedoStorage::RedoStorage()
 {
@@ -20,6 +21,13 @@ RedoStorage::RedoStorage(NavPoint point)
 {
     obj.navpoint = point;
     saved_object = NAVPOINT;
+}
+
+RedoStorage::RedoStorage(void *to_delete)
+                         : RedoStorage::RedoStorage()
+{
+    obj.object_to_mark_deleted = to_delete;
+    saved_object = MARKDELETED;
 }
 
 RedoStorage::~RedoStorage()

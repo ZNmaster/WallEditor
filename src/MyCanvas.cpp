@@ -648,6 +648,7 @@ void MyCanvas::OnMouseUp(wxMouseEvent &event)
 #endif
                 dc.DrawLine(m_anchorpoint.x, m_anchorpoint.y, endpoint.x, endpoint.y);
                 */
+                redo_list.clear();
                 redraw_canvas();
 
                 break;
@@ -673,6 +674,7 @@ void MyCanvas::OnKeyDown(wxKeyEvent &event)
             if(success)
             {
                 selected = nullptr;
+                redo_list.clear();
                 redraw_canvas();
             }
         }
@@ -761,15 +763,19 @@ void MyCanvas::undo()
 {
     if (undo_list.end() == undo_list.begin()) return;
 
+    //iterator to the pointer to the last object done
     auto it1 = undo_list.end() - 1;
+    //iterator to the type of the last action
     auto it2 = action_log.end() - 1;
 
     if (*it2 == CREATED)
     {
-        auto it3 = walls.end();
-        it3 --;
+        //iterator to the last wall
+        auto it3 = --walls.end();
         if (&(*it3) == *it1)
         {
+            RedoStorage wall(*it3);
+            redo_list.push_back(wall);
             walls.erase(it3);
 
         }
@@ -780,6 +786,8 @@ void MyCanvas::undo()
         {
             if (&(*it) == *it1)
             {
+                RedoStorage object_ptr(*it1);
+                redo_list.push_back(object_ptr);
                 it->deleted = 0;
             }
         }
@@ -793,7 +801,44 @@ void MyCanvas::undo()
 
 void MyCanvas::redo()
 {
-    wxLogMessage("Redo");
+    //wxLogMessage("Redo")
+    if(redo_list.begin() == redo_list.end()) return;
+    auto it2 = --redo_list.end();
+
+    switch(it2->saved_object)
+    {
+    case 1:
+        {
+            walls.push_back(it2->obj.wall);
+            auto it = walls.end();
+            it--;
+            selected = &(*it);
+            register_created(selected);
+            redraw_canvas();
+            break;
+        }
+    case 2:
+        {
+            //navpoint to do later
+            break;
+        }
+    case 3:
+        {
+            selected = it2->obj.object_to_mark_deleted;
+
+            bool success;
+            if(selected) success = delete_map_obj(selected);
+            if(success)
+            {
+                selected = nullptr;
+                redraw_canvas();
+
+            }
+            break;
+        }
+    }
+
+    redo_list.erase(--redo_list.end());
 }
 
 MyCanvas::~MyCanvas()

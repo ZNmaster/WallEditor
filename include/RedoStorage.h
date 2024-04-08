@@ -22,9 +22,11 @@ class RedoStorage
         RedoStorage(Wall wall); //type 1
         //replace NavPoint with real class
         RedoStorage(NavPoint);
+        RedoStorage(void *to_delete);
         //and so on
         unsigned int saved_object;
 
+        // This is to use different data structures
         Object obj;
 
         virtual ~RedoStorage();
