@@ -7,6 +7,7 @@ RedoStorage::RedoStorage()
 {
     //ctor
     saved_object = 0;
+    obj.object_to_mark_deleted = nullptr;
 }
 
 RedoStorage::RedoStorage(Wall wall)

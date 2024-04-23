@@ -12,6 +12,8 @@
 #include "WallEditorMain.h"
 #define CREATED 1
 #define DELETED 2
+#define MARK 1
+#define UNMARK 0
 
 wxBEGIN_EVENT_TABLE(MyCanvas, wxScrolledWindow)
     EVT_PAINT  (MyCanvas::OnPaint)
@@ -670,13 +672,22 @@ void MyCanvas::OnKeyDown(wxKeyEvent &event)
     else if(KeyCode == WXK_DELETE)
         {
             bool success;
-            if(selected) success = delete_map_obj(selected);
-            if(success)
+            //An object is selected
+            if(selected) success = deleted(walls, selected, true);
+            //No object selected
+            else return;
+
+            if(!success)
             {
-                selected = nullptr;
+              //Run other containers
+            }
+            else
+            {
                 redo_list.clear();
                 redraw_canvas();
+                return;
             }
+
         }
     else
         {
@@ -768,6 +779,7 @@ void MyCanvas::undo()
     //iterator to the type of the last action
     auto it2 = action_log.end() - 1;
 
+    //if the object has been created we remove it from container
     if (*it2 == CREATED)
     {
         //iterator to the last wall
@@ -780,17 +792,18 @@ void MyCanvas::undo()
 
         }
     }
+
+    //if the object has been marked as deleted
     else
     {
-        for(auto it = walls.begin(); it != walls.end(); it++)
+        bool success;
+        success = deleted(walls, *it1, UNMARK);
+
+        if (!success)
         {
-            if (&(*it) == *it1)
-            {
-                RedoStorage object_ptr(*it1);
-                redo_list.push_back(object_ptr);
-                it->deleted = 0;
-            }
+            //Run other containers
         }
+
     }
 
     undo_list.erase(it1);
@@ -807,6 +820,7 @@ void MyCanvas::redo()
 
     switch(it2->saved_object)
     {
+    //redo wall
     case 1:
         {
             walls.push_back(it2->obj.wall);
@@ -817,22 +831,22 @@ void MyCanvas::redo()
             redraw_canvas();
             break;
         }
+    //redo navpoint
     case 2:
         {
             //navpoint to do later
             break;
         }
+    //redo deletion
     case 3:
         {
             selected = it2->obj.object_to_mark_deleted;
 
             bool success;
-            if(selected) success = delete_map_obj(selected);
+            if (selected) success = deleted(walls, selected, MARK);
             if(success)
             {
-                selected = nullptr;
                 redraw_canvas();
-
             }
             break;
         }

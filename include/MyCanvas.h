@@ -90,23 +90,6 @@ public:
 
     unsigned int toolid;
 
-    std::list<Wall> walls;
-
-    //pointers and the last actions on the object created or deleted
-    std::vector<void *> undo_list;
-    std::vector<unsigned int> action_log;
-
-    std::vector<RedoStorage> redo_list;
-
-    //pointer to selected map object
-    void *selected = nullptr;
-
-    //drawing walls
-    void draw_walls(wxDC& dc);
-
-    //finds a distance to nearest wall end of all walls in vector
-    float nearest_wallend(wxPoint& wallstart, const wxPoint& anchor);
-
     void undo();
     void redo();
 
@@ -142,6 +125,26 @@ protected:
     void DrawRegionsHelper(wxDC& dc, wxCoord x, bool firstTime);
 
 private:
+
+
+    std::list<Wall> walls;
+    std::list<NavPoint> navpoints;
+
+    //pointers and the last actions on the object created or deleted
+    std::vector<void *> undo_list;
+    std::vector<unsigned int> action_log;
+
+    std::vector<RedoStorage> redo_list;
+
+    //pointer to selected map object
+    void *selected = nullptr;
+
+    //drawing walls
+    void draw_walls(wxDC& dc);
+
+    //finds a distance to nearest wall end of all walls in vector
+    float nearest_wallend(wxPoint& wallstart, const wxPoint& anchor);
+
     WallEditorFrame *m_owner;
 
     int          m_show;
@@ -168,6 +171,53 @@ private:
     inline void register_created(void *object);
 
 
+    //Container template functions
+    template <typename Container>
+    unsigned int GetNumberOfObjects (Container container)
+    {
+        unsigned int counter = 0;
+        for (auto obj : container)
+        {
+            if (!obj.deleted) counter ++;
+        }
+        return counter;
+    }
+
+    //used to mark and unmark objects as deleted
+    template<typename Container>
+    bool deleted(Container &container, void *object, bool mark)
+    {
+        for(auto it = container.begin(); it != container.end(); it++)
+        {
+            if (&(*it) == object)
+            {
+                it->deleted = mark;
+
+                //if to mark deleted
+                //used for delete and redo delete
+                if (mark)
+                {
+                    void* deleted_obj = &(*it);
+                    register_deleted(deleted_obj);
+                    selected = nullptr;
+
+                }
+
+                //if to unmark deleted
+                //used to undo delete
+                else
+                {
+                    RedoStorage object_ptr(object);
+                    redo_list.push_back(object_ptr);
+                }
+
+             //redraw_canvas();
+             return 1;
+            }
+        }
+
+    return 0;
+    }
 
 
     // any class wishing to process wxWidgets events must use this macro
