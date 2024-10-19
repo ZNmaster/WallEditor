@@ -141,6 +141,7 @@ private:
 
     //drawing walls
     void draw_walls(wxDC& dc);
+    void create_new_wall(int x_start, int y_start, int x_end, int y_end);
 
     //finds a distance to nearest wall end of all walls in vector
     float nearest_wallend(wxPoint& wallstart, const wxPoint& anchor);
@@ -153,7 +154,7 @@ private:
     bool         m_clip;
     wxOverlay    m_overlay;
     bool         m_rubberBand;
-    bool         m_ShiftKeyPressed;
+    bool         m_ShiftKeyPressed, m_AltKeyPressed;
     wxPoint      m_anchorpoint;
     wxPoint      m_currentpoint;
 #if wxUSE_GRAPHICS_CONTEXT

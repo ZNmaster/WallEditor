@@ -490,6 +490,15 @@ void MyCanvas::OnMouseMove(wxMouseEvent &event)
                         m_currentpoint.y = m_anchorpoint.y;
                     }
                 }
+                else if (m_AltKeyPressed)
+                {
+                    wxRect newrect ( m_anchorpoint , m_currentpoint ) ;
+                    dc.SetPen( wxPen( *wxLIGHT_GREY, 2 ) );
+                    dc.SetBrush( *wxTRANSPARENT_BRUSH );
+                    dc.DrawRectangle( newrect );
+                    break;
+
+                }
                 dc.DrawLine(m_anchorpoint.x, m_anchorpoint.y, m_currentpoint.x, m_currentpoint.y);
             break;
             }
@@ -497,9 +506,7 @@ void MyCanvas::OnMouseMove(wxMouseEvent &event)
         }
 
     }
-//#else
-//    wxUnusedVar(event);
-//#endif // wxUSE_STATUSBAR
+
 }
 
 void MyCanvas::OnMouseDown(wxMouseEvent &event)
@@ -611,6 +618,7 @@ void MyCanvas::OnMouseUp(wxMouseEvent &event)
         //walls tool selected
         case 1:
             {
+                //horizontal and vertical walls
                 if (m_ShiftKeyPressed)
                 {
                     unsigned int delta_x = abs(m_anchorpoint.x - endpoint.x);
@@ -626,30 +634,23 @@ void MyCanvas::OnMouseUp(wxMouseEvent &event)
                     }
                 }
 
-                Wall wall(m_anchorpoint.x, m_anchorpoint.y, endpoint.x, endpoint.y);
+                //rect box walls
+                else if (m_AltKeyPressed)
+                {
+                    create_new_wall(m_anchorpoint.x, m_anchorpoint.y, endpoint.x, m_anchorpoint.y);
+                    create_new_wall(m_anchorpoint.x, m_anchorpoint.y, m_anchorpoint.x, endpoint.y);
+                    create_new_wall(m_anchorpoint.x, endpoint.y, endpoint.x, endpoint.y);
+                    create_new_wall(endpoint.x, m_anchorpoint.y, endpoint.x, endpoint.y);
 
-                walls.push_back(wall);
-                auto it = walls.end();
-                it--;
-                selected = &(*it);
-                register_created(selected);
+                    redo_list.clear();
+                    redraw_canvas();
 
-                /*
-                wxClientDC dc( this ) ;
-                PrepareDC( dc ) ;
+                    break;
+                }
 
-                wxDCOverlay overlaydc( m_overlay, &dc );
-                overlaydc.Clear();
-#ifdef __WXMAC__
-                dc.SetPen( *wxGREY_PEN );
-                dc.SetBrush( wxColour( 192,192,192,64 ) );
-#else
-                // Set line color to cyan, fill color to yellow
-                dc.SetPen(wxPen(*wxCYAN, 2, wxSOLID));
-                dc.SetBrush(wxBrush(*wxBLACK, wxSOLID));
-#endif
-                dc.DrawLine(m_anchorpoint.x, m_anchorpoint.y, endpoint.x, endpoint.y);
-                */
+
+                create_new_wall(m_anchorpoint.x, m_anchorpoint.y, endpoint.x, endpoint.y);
+
                 redo_list.clear();
                 redraw_canvas();
 
@@ -657,7 +658,6 @@ void MyCanvas::OnMouseUp(wxMouseEvent &event)
             }
 
         }
-
 
     }
 }
@@ -669,7 +669,13 @@ void MyCanvas::OnKeyDown(wxKeyEvent &event)
         {
             m_ShiftKeyPressed = true;
         }
+
+    else if (KeyCode == WXK_ALT)
+        {
+            m_AltKeyPressed = true;
+        }
     else if(KeyCode == WXK_DELETE)
+
         {
             bool success;
             //An object is selected
@@ -703,7 +709,15 @@ void MyCanvas::OnKeyUp(wxKeyEvent &event)
 {
 
     int KeyCode = event.GetKeyCode();
-    m_ShiftKeyPressed = false;
+    if (KeyCode == WXK_SHIFT)
+    {
+        m_ShiftKeyPressed = false;
+    }
+    if (KeyCode == WXK_ALT)
+    {
+        m_AltKeyPressed = false;
+    }
+
 
 }
 
@@ -853,6 +867,16 @@ void MyCanvas::redo()
     }
 
     redo_list.erase(--redo_list.end());
+}
+void MyCanvas::create_new_wall(int x_start, int y_start, int x_end, int y_end)
+{
+    Wall wall(x_start, y_start, x_end, y_end);
+
+    walls.push_back(wall);
+    auto it = walls.end();
+    it--;
+    selected = &(*it);
+    register_created(selected);
 }
 
 MyCanvas::~MyCanvas()
